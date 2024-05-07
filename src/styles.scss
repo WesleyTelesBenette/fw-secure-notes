@@ -1,3 +1,37 @@
 
 @import url('./styles/reset.scss');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
+:root
+{
+	--text-light: #eee;
+	--text-normal: #c7c7c7;
+	--text-dark: #a7a7a7;
+	--background-dark: #0c0c0c;
+	--background-normal: #141414;
+	--background-light: #202020;
+}
+
+*
+{
+	font-family: "Sarabun", Arial;
+	font-weight: 800;
+}
+
+
+.click
+{
+	opacity: 1;
+	user-select:none;
+	transition: opacity 0.2s;
+
+	@media only screen and (any-hover: hover)
+	{
+		&:hover
+		{
+			cursor: pointer;
+			opacity: 0.7;
+		}
+	}
+	&:active { opacity: 0.4; }
+}
