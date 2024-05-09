@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { FooterComponent } from '../../components/footer/footer.component';
+import { ModalHomePageComponent } from './modal-home-page/modal-home-page.component';
 
 /** Componente da página principal da aplicação.
  *
@@ -11,7 +12,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 ({
 	selector: 'app-home-page',
 	standalone: true,
-	imports: [FooterComponent, FormsModule],
+	imports: [FooterComponent, FormsModule, ModalHomePageComponent],
 	templateUrl: './home-page.component.html',
 	styleUrl: './home-page.component.scss'
 })

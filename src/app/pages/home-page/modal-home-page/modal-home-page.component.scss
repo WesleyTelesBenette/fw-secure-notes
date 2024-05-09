@@ -1,0 +1,64 @@
+
+.modal-home-page
+{
+	background-color: var(--background-normal);
+
+	.header
+	{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0px;
+
+		border: none;
+
+		.title
+		{
+			margin: 0px;
+
+			font-family: "Zilla Slab";
+			font-size: 1.5em;
+			color: var(--text-light);
+		}
+	}
+
+	.content
+	{
+		margin: 0px;
+
+		background-color: var(--background-dark);
+
+		font-weight: 400;
+		font-family: "Zilla Slab";
+		font-size: 1.1em;
+		color: var(--text-normal);
+	}
+
+	.footer
+	{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		border: none;
+		background-color: var(--background-dark);
+
+
+		.button
+		{
+			width: 30%;
+			height: 40px;
+			border-radius: 10px;
+			border: none;
+			background-color: var(--background-normal);
+
+			color: var(--text-light);
+		}
+	}
+}
+
+.marked
+{
+	font-weight: 800;
+	font-style: italic;
+}
