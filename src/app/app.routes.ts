@@ -7,7 +7,7 @@ import { NotePageComponent } from './pages/note-page/note-page.component';
 export const routes: Routes =
 [
 	{ path: '', component: HomePageComponent },
-	{ path:'page/:pageName', component: NotePageComponent }
+	{ path:'page/:pageUrlSlug', component: NotePageComponent }
 ];
 
 
