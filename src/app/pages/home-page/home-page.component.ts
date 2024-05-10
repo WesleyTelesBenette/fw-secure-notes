@@ -47,10 +47,8 @@ export class HomePageComponent
 	 */
 	public createNote(): void
 	{
-		const inputContent: string | undefined | null = document.getElementById('input')?.textContent;
-
-		if (inputContent) alert(inputContent);
-
+		const inputContent: string = (document.getElementById('input') as HTMLInputElement)?.value;
+		if (inputContent !== '') alert("Create: " + inputContent);
 		return;
 	}
 
@@ -59,9 +57,8 @@ export class HomePageComponent
 	 */
 	public searchNote(): void
 	{
-		const inputContent: string | undefined | null = document.getElementById('input')?.textContent;
-
-		if (inputContent) alert(inputContent);
+		const inputContent: string = (document.getElementById('input') as HTMLInputElement)?.value;
+		if (inputContent !== '') alert("Search: " + inputContent);
 
 		return;
 	}
