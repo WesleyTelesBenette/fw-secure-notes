@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component
 ({
 	selector: 'app-note-page',
 	standalone: true,
-	imports: [],
+	imports: [FooterComponent],
 	templateUrl: './note-page.component.html',
 	styleUrl: './note-page.component.scss'
 })
