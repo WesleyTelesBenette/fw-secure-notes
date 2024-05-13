@@ -94,7 +94,24 @@
 
 		.title
 		{
+			height: 100px;
+			background-color: transparent;
+			border: none;
+			outline-style: none;
+			padding-left: 20px;
+			transition: padding-bottom 0.2s ease, font-size 0.1s ease;
 
+			color: var(--text-light);
+			font-family: "Zilla Slab";
+			font-size: 3.5em;
+
+			&:focus
+			{
+				padding-bottom: 5px;
+
+				font-size: 3.4em;
+				color: var(--text-dark);
+			}
 		}
 		.hr
 		{
@@ -104,7 +121,7 @@
 			border: 1px solid var(--text-dark);
 		}
 
-		.contant
+		.content
 		{
 
 		}
