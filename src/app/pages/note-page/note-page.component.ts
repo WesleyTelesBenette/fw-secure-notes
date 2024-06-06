@@ -28,7 +28,7 @@ export class NotePageComponent implements OnInit
 
 	private isValidUrlSlug(): boolean
 	{
-		if ((this.slug === '') || (this.slug.length < 7) || (this.slug[this.slug.length-6] !== '-'))
+		if ((this.slug === '') || (this.slug.length < 7) || (this.slug[this.slug.length-4] !== '-'))
 		{
 			this.errorPage('400 - Bad Request', 'A URL não está no formato de uma página de anotações.');
 			return false;

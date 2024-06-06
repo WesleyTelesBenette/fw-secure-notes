@@ -11,7 +11,7 @@ describe('HomePageComponent', () => {
       imports: [HomePageComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(HomePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

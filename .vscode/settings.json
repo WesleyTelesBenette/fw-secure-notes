@@ -1,0 +1,16 @@
+{
+	"editor.fontFamily": "Cascadia Mono",
+	"editor.codeLensFontFamily": "Cascadia Mono",
+	"editor.inlayHints.fontFamily": "Cascadia Mono",
+	"editor.experimentalInlineEdit.fontFamily": "Cascadia Mono",
+	"gitlens.blame.fontStyle": "Cascadia Mono",
+	"gitlens.blame.fontFamily": "Cascadia Mono",
+	"gitlens.currentLine.fontStyle": "normal",
+	"gitlens.currentLine.fontFamily": "Cascadia Mono",
+	"chat.editor.fontFamily": "Cascadia Mono",
+	"editor.inlineSuggest.fontFamily": "Cascadia Mono",
+	"scm.inputFontFamily": "Cascadia Mono",
+	"debug.console.fontFamily": "Cascadia Mono",
+	"terminal.integrated.fontFamily": "Cascadia Mono",
+	"notebook.output.fontFamily": "Cascadia Mono"
+}
