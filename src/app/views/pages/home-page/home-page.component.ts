@@ -80,15 +80,3 @@ export class HomePageComponent
 		return;
 	}
 }
-
-export class B
-{
-	public message: string = "dfgh";
-	array: string[] = [];
-
-	public constructor(message: string, array: string[])
-	{
-		this.message = message;
-		this.array = array;
-	}
-};
