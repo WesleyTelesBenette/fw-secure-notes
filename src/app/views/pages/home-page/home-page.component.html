@@ -16,7 +16,7 @@
 			Anotações seguras que você pode acessar de qualquer lugar.
 		</h2>
 
-		<input id="input" type="text" [(ngModel)]="pageName" (input)="limitPageName()" placeholder="Digite o nome da página" maxlength="29"/>
+		<input id="input" type="text" [(ngModel)]="pageName" (input)="limitedPageName()" placeholder="Digite o nome da página" maxlength="29"/>
 		<div class="buttons">
 			<div class="button click" (click)="createNote()">✨ Criar</div>
 			<div class="button click" (click)="searchNote()">🔍 Procurar</div>

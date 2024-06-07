@@ -18,6 +18,11 @@ import { ModalHomePageComponent } from './modal-home-page/modal-home-page.compon
 })
 export class HomePageComponent
 {
+	public constructor()
+	{
+
+	}
+
 	/** Atributo que representa o conteúdo do ***input*** principal.
 	 *
 	 * Ele é (e deve ser) sincronizado pelo [(ngModel)].
@@ -32,7 +37,7 @@ export class HomePageComponent
 	 *
 	 * @returns void
 	 */
-	public limitPageName(): void
+	public limitedPageName(): void
 	{
 		let newPageName: string = this.pageName;
 
@@ -48,7 +53,19 @@ export class HomePageComponent
 	public createNote(): void
 	{
 		const inputContent: string = (document.getElementById('input') as HTMLInputElement)?.value;
-		if (inputContent !== '') alert("Create: " + inputContent);
+
+		if (((inputContent.replace(/[^a-zA-Z0-9-]/g, '-')) !== ''))
+		{
+			try
+			{
+
+			}
+			catch(error)
+			{
+
+			}
+		}
+
 		return;
 	}
 
@@ -63,3 +80,15 @@ export class HomePageComponent
 		return;
 	}
 }
+
+export class B
+{
+	public message: string = "dfgh";
+	array: string[] = [];
+
+	public constructor(message: string, array: string[])
+	{
+		this.message = message;
+		this.array = array;
+	}
+};
