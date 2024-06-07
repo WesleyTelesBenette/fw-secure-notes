@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalHomePageComponent } from './modal-home-page.component';
+import { ModalInfoComponent } from './modal-info.component';
 
-describe('ModalHomePageComponent', () => {
-  let component: ModalHomePageComponent;
-  let fixture: ComponentFixture<ModalHomePageComponent>;
+describe('ModalInfoComponent', () => {
+  let component: ModalInfoComponent;
+  let fixture: ComponentFixture<ModalInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalHomePageComponent]
+      imports: [ModalInfoComponent]
     })
     .compileComponents();
-    
-    fixture = TestBed.createComponent(ModalHomePageComponent);
+
+    fixture = TestBed.createComponent(ModalInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

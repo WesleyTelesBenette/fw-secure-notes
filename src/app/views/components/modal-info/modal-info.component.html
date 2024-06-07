@@ -1,0 +1,20 @@
+
+<div class="modal fade" id="modalHomePage" tabindex="-1" aria-labelledby="modalHomePageLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content modal-home-page">
+
+			<div class="modal-header header">
+				<h1 class="title" id="modalHomePageLabel">{{ title }}</h1>
+			</div>
+
+			<div class="modal-body content">
+				<ng-content/>
+			</div>
+
+			<div class="modal-footer footer">
+				<button type="button" class="button click" data-bs-dismiss="modal">Fechar</button>
+			</div>
+
+		</div>
+	</div>
+</div>
