@@ -1,38 +1,55 @@
 
-<div class="container">
-	<div class="top">
-		<header>
-			<div class="container-header">
-				<div class="files click">Arquivos</div>
-			</div>
-			<div class="container-header">
-				<div class="title">fhjhj</div>
-			</div>
-			<div class="container-header">
-				<div class="tools">
-					<div class="tool">
-						<img class="image" src="f g"/>
-					</div>
-					<div class="tool">
-						<img class="image" src="f g"/>
-					</div>
-					<div class="tool">
-						<img class="image" src="f g"/>
-					</div>
-					<div class="tool">
-						<img class="image" src="f g"/>
+<ng-container *ngIf="!currentPage.pageOn">
+	<div class="loading-background"></div>
+</ng-container>
+
+<ng-container *ngIf="currentPage.pageOn">
+
+	<div class="container">
+		<div class="top">
+			<header>
+				<div class="container-header">
+					<div class="files click">Arquivos</div>
+				</div>
+				<div class="container-header">
+					<div class="title">{{ currentPage.pageTitle }}</div>
+				</div>
+				<div class="container-header">
+					<div class="tools">
+						<div class="tool">
+							<img class="image" src="f g"/>
+						</div>
+						<div class="tool">
+							<img class="image" src="f g"/>
+						</div>
+						<div class="tool">
+							<img class="image" src="f g"/>
+						</div>
+						<div class="tool">
+							<img class="image" src="f g"/>
+						</div>
 					</div>
 				</div>
-			</div>
+			</header>
 
-		</header>
+			<main>
+				<input class="title" type="text"/>
+				<hr class="hr"/>
+				<textarea class="content"></textarea>
+			</main>
+		</div>
 
-		<main>
-			<input class="title" type="text"/>
-			<hr class="hr"/>
-			<textarea class="content"></textarea>
-		</main>
+		<app-footer/>
 	</div>
 
-	<app-footer/>
-</div>
+</ng-container>
+
+<app-info-page [title]="currentPage.pageErrorTitle" (buttonClick)="errorPageAction()" [show]="currentPage.pageErrorOn">
+	{{ currentPage.pageErrorContent }}
+</app-info-page>
+
+<app-info-page [title]="'Insira sua senha'" (buttonClick)="callInputPasswordAction()" [show]="currentPage.pagePasswordOn" [buttonName]="'Confirmar'">
+	<form action="">
+		<app-input-password [(password)]="inputPasswordModal" [placeholder]="'Digite sua senha...'"/>
+	</form>
+</app-info-page>
