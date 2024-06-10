@@ -7,7 +7,8 @@ import { NotePageComponent } from './views/pages/note-page/note-page.component';
 export const routes: Routes =
 [
 	{ path: '', component: HomePageComponent },
-	{ path:'page/:pageUrlSlug', component: NotePageComponent }
+	{ path:'page/:pageSlug/:pinSlug', component: NotePageComponent },
+	{ path: '**', component: HomePageComponent }
 ];
 
 @NgModule
