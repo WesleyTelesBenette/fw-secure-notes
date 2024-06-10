@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ModalInfoComponent } from '../../components/modal-info/modal-info.component';
+import { CommonModule } from '@angular/common';
 
 /** Componente da página principal da aplicação.
  *
@@ -12,16 +13,25 @@ import { ModalInfoComponent } from '../../components/modal-info/modal-info.compo
 ({
 	selector: 'app-home-page',
 	standalone: true,
-	imports: [FooterComponent, FormsModule, ModalInfoComponent],
+	imports: [CommonModule, FooterComponent, FormsModule, ModalInfoComponent],
 	templateUrl: './home-page.component.html',
 	styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent
 {
+	public pageName: string = '';
+	public infoModalOn: boolean = false;
+
 	public constructor()
 	{
 
 	}
+
+	public toggleInfoModalOn()
+	{
+		this.infoModalOn = !this.infoModalOn;
+	}
+
 
 	/** Atributo que representa o conteúdo do ***input*** principal.
 	 *
@@ -29,7 +39,8 @@ export class HomePageComponent
 	 *
 	 * @type string
 	 */
-	pageName: string = '';
+
+
 
 	/** Método que delimita os caracteres que podem ser utilizados para o nome de uma página.
 	 *

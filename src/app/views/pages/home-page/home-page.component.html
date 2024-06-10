@@ -4,7 +4,7 @@
 		<a href="https://github.com/WesleyTelesBenette/fw-secure-notes" target="_blank">
 			<img class="link click" src="./assets/github.svg" title="github"/>
 		</a>
-		<img class="link click" src="./assets/info.svg" title="informações" data-bs-toggle="modal" data-bs-target="#modalHomePage"/>
+		<img class="link click" src="./assets/info.svg" title="informações" (click)="toggleInfoModalOn()"/>
 	</header>
 
 	<main>
@@ -26,7 +26,8 @@
 	<app-footer/>
 </div>
 
-<app-info-page title="Informações do sistema">
+
+<app-info-page title="Informações do sistema" (buttonClick)="toggleInfoModalOn()" [show]="infoModalOn">
 	Com o <span>FW Secure Notes</span> você pode criar anotações,
 	que podem ser acessadas de qualquer lugar, apenas com o Link da sua página.<br/><br/>
 	O nome da página sempre vai ser um <span>título</span> escolhido por
@@ -37,5 +38,4 @@
 	de forma rápida.<br/><br/>
 	Espero que faça bom proveito dos nossos recursos :)
 </app-info-page>
-
 
