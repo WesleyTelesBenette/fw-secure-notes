@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component
@@ -17,6 +17,7 @@ export class ModalInfoComponent implements AfterViewInit, OnInit
 	@Input() buttonName: string = 'Fechar';
 	@Output() buttonClick = new EventEmitter<void>();
 	private _show: boolean = false;
+	private keyupListener!: () => void;
 
 	@Input()
 	set show(value: boolean)
@@ -35,8 +36,16 @@ export class ModalInfoComponent implements AfterViewInit, OnInit
 		return this._show;
 	}
 
+	public constructor(private renderer: Renderer2) {}
+
 	public ngOnInit(): void
 	{
+		this.keyupListener = this.renderer.listen('document', 'keyup', (event: KeyboardEvent) =>
+		{
+			if (event.key === 'Enter' && this.show)
+				this.clickOn();
+		});
+
 		if (!this._show)
 		{
 			const modal = this.modalElement.nativeElement;
@@ -46,12 +55,6 @@ export class ModalInfoComponent implements AfterViewInit, OnInit
 
 	public ngAfterViewInit(): void
 	{
-		document.addEventListener('keyup', (key) =>
-		{
-			if ((key.key === 'Enter') && (this._show))
-				this.clickOn();
-		});
-
 		const modal = this.modalElement.nativeElement;
 
 		modal.addEventListener('transitionend',() =>

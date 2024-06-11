@@ -1,0 +1,39 @@
+
+<header>
+	<div class="container-header">
+		<div class="files click">Arquivos</div>
+	</div>
+	<div class="container-header">
+		<div class="title">{{ title }}</div>
+	</div>
+	<div class="container-header">
+		<div class="tools">
+			<div class="edit-view">
+				<div class="headerMode" [ngClass]="{'edit': headerMode == 'edit'}" (click)="toggleHeaderMode('edit')">
+					<img
+					class="image click"
+					[ngClass]="{'view-image': headerMode == 'edit'}"
+					[src]="headerMode == 'edit' ? './assets/edit.svg' : './assets/edit-dark.svg'"/>
+				</div>
+				<div class="headerMode" [ngClass]="{'view': headerMode == 'view'}" (click)="toggleHeaderMode('view')">
+					<img
+					class="image click"
+					[ngClass]="{'edit-image': headerMode == 'view'}"
+					[src]="headerMode == 'view' ? './assets/view.svg' : './assets/view-dark.svg'"/>
+				</div>
+			</div>
+			<div class="tool click">
+				<img class="image" src="./assets/theme.svg"/>
+			</div>
+			<div class="tool click">
+				<img class="image" src="./assets/copy.svg"/>
+			</div>
+			<div class="tool click">
+				<img class="image" src="./assets/info-page.svg"/>
+			</div>
+			<div class="tool click">
+				<img class="image" src="./assets/logout.svg"/>
+			</div>
+		</div>
+	</div>
+</header>

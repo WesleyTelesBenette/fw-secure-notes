@@ -13,12 +13,16 @@ import JwtTokenService from '../../../services/jwt-token/JwtTokenService';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ModalInfoComponent } from '../../components/modal-info/modal-info.component';
 import { InputPasswordComponent } from '../../components/input-password/input-password.component';
+import { HeaderNotePageComponent } from './header-note-page/header-note-page.component';
 
 @Component
 ({
 	selector: 'app-note-page',
 	standalone: true,
-	imports: [CommonModule, FormsModule, FooterComponent, ModalInfoComponent, InputPasswordComponent],
+	imports:
+	[
+		CommonModule, FormsModule,
+		FooterComponent, ModalInfoComponent, InputPasswordComponent, HeaderNotePageComponent],
 	templateUrl: './note-page.component.html',
 	styleUrl: './note-page.component.scss'
 })

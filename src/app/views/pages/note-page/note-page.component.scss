@@ -20,66 +20,6 @@
 		justify-content: flex-start;
 	}
 
-	header
-	{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-
-		max-width: 100%;
-		height: 55px;
-		background-color: var(--background-light);
-
-		color: white;
-
-		.container-header
-		{
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			width: 30%;
-			height: 100%;
-
-			.files
-			{
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				width: 50%;
-				min-height: 60%;
-				background-color: var(--background-hyper-light);
-			}
-
-
-			.tools
-			{
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				gap: 30px;
-
-				.tool
-				{
-					display: flex;
-					justify-content: center;
-					align-items: center;
-
-					height: 75%;
-					border: 1px solid var(--background-light);
-
-					.image
-					{
-						width: 20px;
-					}
-				}
-			}
-		}
-	}
-
 	main
 	{
 		display: flex;

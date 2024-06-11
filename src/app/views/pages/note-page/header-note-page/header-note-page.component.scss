@@ -1,0 +1,158 @@
+
+header
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 50px;
+	padding-right: 50px;
+
+	max-width: 100%;
+	height: 55px;
+	background-color: var(--background-light);
+
+	color: white;
+
+	.container-header
+	{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		width: 100%;
+		height: 100%;
+
+		.files
+		{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-right: 50%;
+
+			width: 100%;
+			min-height: 60%;
+			background-color: var(--background-hyper-light);
+		}
+
+		.tools
+		{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 30px;
+
+			.edit-view
+			{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 0px;
+
+
+				border-radius: 10px;
+				background-color: var(--background-dark);
+
+				.headerMode
+				{
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					padding: 5px;
+					padding-left: 7px;
+					padding-right: 7px;
+
+					border-radius: 10px;
+				}
+			}
+
+			.tool
+			{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				height: 75%;
+				border: 1px solid var(--background-light);
+			}
+
+			.image
+			{
+				width: 28px;
+			}
+		}
+	}
+}
+
+.edit
+{
+	z-index: 1;
+	animation: editOn 0.3s ease-in-out;
+
+	background: var(--background-hyper-light);
+}
+
+.view
+{
+	z-index: 1;
+	animation: viewOn 0.3s ease-in-out;
+
+	background: var(--background-hyper-light);
+}
+
+.edit-image
+{
+	z-index: 1;
+	animation: editImageOn 0.6s ease-in-out;
+}
+
+.view-image
+{
+	z-index: 1;
+	animation: viewImageOn 0.6s ease-in-out;
+}
+
+@keyframes editOn
+{
+	0% {
+		transform: translateX(42px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes viewOn
+{
+	0% {
+		transform: translateX(-42px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes editImageOn
+{
+	0% {
+		opacity: 0;
+		transform: translateX(42px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes viewImageOn
+{
+	0% {
+		opacity: 0;
+		transform: translateX(-42px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}

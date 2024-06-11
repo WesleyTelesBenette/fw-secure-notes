@@ -7,30 +7,7 @@
 
 	<div class="container">
 		<div class="top">
-			<header>
-				<div class="container-header">
-					<div class="files click">Arquivos</div>
-				</div>
-				<div class="container-header">
-					<div class="title">{{ currentPage.pageTitle }}</div>
-				</div>
-				<div class="container-header">
-					<div class="tools">
-						<div class="tool">
-							<img class="image" src="f g"/>
-						</div>
-						<div class="tool">
-							<img class="image" src="f g"/>
-						</div>
-						<div class="tool">
-							<img class="image" src="f g"/>
-						</div>
-						<div class="tool">
-							<img class="image" src="f g"/>
-						</div>
-					</div>
-				</div>
-			</header>
+			<app-header-note-page [title]="currentPage.pageTitle"/>
 
 			<main>
 				<input class="title" type="text"/>
