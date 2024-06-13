@@ -7,26 +7,59 @@
 
 	<div class="container">
 		<div class="top">
-			<app-header-note-page [title]="currentPage.pageTitle"/>
+			<app-header-note-page
+				[currentPage]="currentPage"
+				(throwError)="errorPage($event)"
+				(loadFile)="loadFileData()"
+			/>
+			<main [ngClass]="{'main-loading-file': currentPage.fileUpdateOn}">
+				<ng-container class="full" *ngIf="currentPage.fileUpdateOn">
+					<app-loading-content-page/>
+				</ng-container>
 
-			<main>
-				<input class="title" type="text"/>
-				<hr class="hr"/>
-				<textarea class="content"></textarea>
+				<ng-container *ngIf="!currentPage.fileUpdateOn">
+					<input
+						class="title"
+						type="text"
+						placeholder="Default..."
+						[value]="((currentPage.fileList.length > 0) && (currentPage.currentFile != null))
+							? currentPage.currentFile.title
+							: 'Default...'"
+					/>
+					<hr class="hr"/>
+					<textarea class="content"></textarea>
+				</ng-container>
 			</main>
 		</div>
-
 		<app-footer/>
 	</div>
 
 </ng-container>
 
-<app-info-page [title]="currentPage.pageErrorTitle" (buttonClick)="errorPageAction()" [show]="currentPage.pageErrorOn">
-	{{ currentPage.pageErrorContent }}
+<app-info-page
+	[title]="pageErrorTitle"
+	[show]="pageErrorOn"
+	[closeEnter]="true"
+	[closeSpace]="true"
+	[closeSpace]="true"
+	(buttonClick)="errorPageAction()"
+>
+	{{ pageErrorContent }}
 </app-info-page>
 
-<app-info-page [title]="'Insira sua senha'" (buttonClick)="callInputPasswordAction()" [show]="currentPage.pagePasswordOn" [buttonName]="'Confirmar'">
+<app-info-page
+	[title]="'Insira sua senha'"
+	[show]="pagePasswordOn"
+	[closeEnter]="true"
+	[closeSpace]="true"
+	[closeSpace]="true"
+	[buttonName]="'Confirmar'"
+	(buttonClick)="callInputPasswordAction()"
+>
 	<form action="">
-		<app-input-password [(password)]="inputPasswordModal" [placeholder]="'Digite sua senha...'"/>
+		<app-input-password
+			[placeholder]="'Digite sua senha...'"
+			[(password)]="inputPasswordModal"
+		/>
 	</form>
 </app-info-page>

@@ -10,10 +10,12 @@ import RequestPageService from '../../../services/database/RequestPageService';
 import RequestAuthorizationService from '../../../services/database/RequestAuthorizationService';
 import JwtTokenService from '../../../services/jwt-token/JwtTokenService';
 
-import { FooterComponent } from '../../components/footer/footer.component';
-import { ModalInfoComponent } from '../../components/modal-info/modal-info.component';
-import { InputPasswordComponent } from '../../components/input-password/input-password.component';
-import { HeaderNotePageComponent } from './header-note-page/header-note-page.component';
+import FooterComponent from '../../components/footer/footer.component';
+import ModalInfoComponent from '../../components/modal-info/modal-info.component';
+import InputPasswordComponent from '../../components/input-password/input-password.component';
+import HeaderNotePageComponent from './header-note-page/header-note-page.component';
+import RequestFileService from '../../../services/database/RequestFileService';
+import { LoadingContentPageComponent } from '../../components/loading-content-page/loading-content-page.component';
 
 @Component
 ({
@@ -22,7 +24,10 @@ import { HeaderNotePageComponent } from './header-note-page/header-note-page.com
 	imports:
 	[
 		CommonModule, FormsModule,
-		FooterComponent, ModalInfoComponent, InputPasswordComponent, HeaderNotePageComponent],
+		FooterComponent, ModalInfoComponent,
+		InputPasswordComponent, HeaderNotePageComponent,
+		LoadingContentPageComponent
+	],
 	templateUrl: './note-page.component.html',
 	styleUrl: './note-page.component.scss'
 })
@@ -32,12 +37,18 @@ export class NotePageComponent implements OnInit
 	private page$ = this.pageSubject.asObservable();
 	public currentPage!: PageModel;
 
+	public pagePasswordOn: boolean = false;
 	public inputPasswordModal: string = '';
+
+	public pageErrorOn: boolean = false;
+	public pageErrorTitle: string = '';
+	public pageErrorContent: string = '';
 
 	constructor(
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
-		private _pageRequest: RequestPageService,
+		private _page: RequestPageService,
+		private _file: RequestFileService,
 		private _authorizarion: RequestAuthorizationService,
 		private _token: JwtTokenService
 	) { }
@@ -49,10 +60,10 @@ export class NotePageComponent implements OnInit
 			this.currentPage = page;
 		});
 
-		const pageSlug = this._activatedRoute.snapshot.paramMap.get('pageSlug') ?? '';
+		const titleSlug = this._activatedRoute.snapshot.paramMap.get('titleSlug') ?? '';
 		const pinSlug = this._activatedRoute.snapshot.paramMap.get('pinSlug') ?? '';
 
-		if (!(await this.loadPageConfig(pageSlug, pinSlug)))
+		if (!(await this.loadPageConfig(titleSlug, pinSlug)))
 			return;
 
 		if ((!this.currentPage.pageHasPassword) || (await this.callTokenValide()))
@@ -64,23 +75,23 @@ export class NotePageComponent implements OnInit
 		this.callInputPassword();
 	}
 
-	private async loadPageConfig(pageSlug: string, pinSlug: string): Promise<boolean>
+	private async loadPageConfig(titleSlug: string, pinSlug: string): Promise<boolean>
 	{
-		const isPageSlugValide = this.currentPage.setPageSlug(pageSlug);
+		const isTitleSlugValide = this.currentPage.setTitleSlug(titleSlug);
 		const isPinSlugValide = this.currentPage.setPinSlug(pinSlug);
 
 		//Correct format?
-		if ((isPageSlugValide) && (isPinSlugValide))
+		if ((isTitleSlugValide) && (isPinSlugValide))
 		{
 			try
 			{
 				const response = await this._authorizarion
-					.getPageHasPassword(this.currentPage.pageSlug, this.currentPage.pinSlug);
+					.getPageHasPassword(this.currentPage.titleSlug, this.currentPage.pinSlug);
 
 				//Exist page
 				if (response.statusCode == 200)
 				{
-					this.currentPage.pageTitle = `${pageSlug}-${pinSlug}`;
+					this.currentPage.pageTitle = `${titleSlug}-${pinSlug}`;
 					this.currentPage.pageHasPassword = (response.content != null)
 						? response.content : false;
 
@@ -97,7 +108,7 @@ export class NotePageComponent implements OnInit
 			}
 			catch
 			{
-				this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servido...\nSinto muito pelo incômodo :(');
+				this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
 				return false;
 			}
 		}
@@ -113,7 +124,8 @@ export class NotePageComponent implements OnInit
 
 		try
 		{
-			const result = await this._authorizarion.checkValidToken(this.currentPage.pageSlug, this.currentPage.pinSlug);
+			const result = await this._authorizarion
+				.checkValidToken(this.currentPage.titleSlug, this.currentPage.pinSlug);
 
 			if (result.statusCode == 200)
 				return true;
@@ -129,18 +141,18 @@ export class NotePageComponent implements OnInit
 	private callInputPassword()
 	{
 		this.currentPage.pageOn = false;
-		this.currentPage.pagePasswordOn = true;
+		this.pagePasswordOn = true;
 		this.updatePage();
 	}
 
 	public async callInputPasswordAction()
 	{
-		this.currentPage.pagePasswordOn = false;
+		this.pagePasswordOn = false;
 
 		try
 		{
 			const response = await this._authorizarion
-				.createToken(this.currentPage.pageSlug, this.currentPage.pinSlug, this.inputPasswordModal);
+				.createToken(this.currentPage.titleSlug, this.currentPage.pinSlug, this.inputPasswordModal);
 
 			if ((response.statusCode == 201) && (response.content != null))
 			{
@@ -171,27 +183,37 @@ export class NotePageComponent implements OnInit
 	}
 
 
-	private initPage(): void
+	private async initPage(): Promise<void>
 	{
 		this.currentPage.pageOn = true;
 		this.updatePage();
 	}
 
-	public updatePage(): void
+	public updatePage(newData: PageModel | null | any = null): void
 	{
+		if (newData)
+			this.currentPage = newData;
+
 		this.pageSubject.next(this.currentPage);
 	}
 
+	public loadFileData()
+	{
+		this.currentPage.fileUpdateOn = false;
+		this.updatePage();
+	}
 
-	private errorPage(error: TypeErrorPage, message: string): void
+
+	public errorPage(
+		error: TypeErrorPage = '500 - Internal Server Error',
+		message: string = 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :('): void
 	{
 		console.error('Erro: ' + error + '.\n' + 'Descrição: ' + message);
 
 		this.currentPage.pageOn = false;
-		this.currentPage.pageErrorOn = true;
-		this.currentPage.pageErrorTitle = error;
-		this.currentPage.pageErrorContent = message;
-		console.log(this.currentPage.pageErrorOn);
+		this.pageErrorOn = true;
+		this.pageErrorTitle = error;
+		this.pageErrorContent = message;
 		this.updatePage();
 	}
 

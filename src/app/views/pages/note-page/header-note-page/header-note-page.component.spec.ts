@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderNotePageComponent } from './header-note-page.component';
+import HeaderNotePageComponent from './header-note-page.component';
 
 describe('HeaderNotePageComponent', () => {
   let component: HeaderNotePageComponent;
@@ -11,7 +11,7 @@ describe('HeaderNotePageComponent', () => {
       imports: [HeaderNotePageComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(HeaderNotePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

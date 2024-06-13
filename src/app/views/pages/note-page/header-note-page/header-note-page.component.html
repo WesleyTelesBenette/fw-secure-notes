@@ -1,39 +1,119 @@
 
 <header>
 	<div class="container-header">
-		<div class="files click">Arquivos</div>
+		<div class="files click" (click)="toggleFilesPageOn()" title="Acessar arquivos da página">
+			Arquivos
+		</div>
 	</div>
 	<div class="container-header">
-		<div class="title">{{ title }}</div>
+		<div class="title">{{ currentPage.pageTitle }}</div>
 	</div>
 	<div class="container-header">
+
 		<div class="tools">
 			<div class="edit-view">
-				<div class="headerMode" [ngClass]="{'edit': headerMode == 'edit'}" (click)="toggleHeaderMode('edit')">
+				<div
+					class="headerMode"
+					[ngClass]="{'edit': headerMode == 'edit'}"
+					(click)="toggleHeaderMode('edit')"
+					title="Modo de edição"
+				>
 					<img
 					class="image click"
 					[ngClass]="{'view-image': headerMode == 'edit'}"
-					[src]="headerMode == 'edit' ? './assets/edit.svg' : './assets/edit-dark.svg'"/>
+					[src]="headerMode == 'edit'
+						? './assets/edit.svg'
+						: './assets/edit-dark.svg'"
+					/>
 				</div>
-				<div class="headerMode" [ngClass]="{'view': headerMode == 'view'}" (click)="toggleHeaderMode('view')">
+				<div
+					class="headerMode"
+					[ngClass]="{'view': headerMode == 'view'}"
+					(click)="toggleHeaderMode('view')"
+					title="Modo de visualização"
+				>
 					<img
 					class="image click"
 					[ngClass]="{'edit-image': headerMode == 'view'}"
-					[src]="headerMode == 'view' ? './assets/view.svg' : './assets/view-dark.svg'"/>
+					[src]="headerMode == 'view'
+						? './assets/view.svg'
+						: './assets/view-dark.svg'"
+					/>
 				</div>
 			</div>
-			<div class="tool click">
+			<div class="tool click" (click)="toggleThemePageOn()" title="Mudar tema de cores">
 				<img class="image" src="./assets/theme.svg"/>
 			</div>
-			<div class="tool click">
+
+			<div class="tool click" (click)="copyLink()" title="Copiar minha URL">
 				<img class="image" src="./assets/copy.svg"/>
 			</div>
-			<div class="tool click">
+
+			<div class="tool click" (click)="toggleInfoPageOn()" title="Informaçãoes sobre a Página">
 				<img class="image" src="./assets/info-page.svg"/>
 			</div>
-			<div class="tool click">
+			<div class="tool click" (click)="logOut()" title="Sair">
 				<img class="image" src="./assets/logout.svg"/>
 			</div>
 		</div>
 	</div>
 </header>
+
+<app-info-page
+	[title]="'Arquivos!'"
+	[show]="filesPageOn"
+	[buttonName]="'Ok'"
+	[closeEnter]="true"
+	[closeSpace]="true"
+	(buttonClick)="toggleFilesPageOn()"
+>
+	<div class="files-modal" *ngFor="let file of currentPage.fileList">
+		<div
+			class="file-modal"
+			[ngClass]="(file.id === currentPage.currentFile?.id) ? 'file-modal-select' : 'click'"
+			(click)="(file.id === currentPage.currentFile?.id) ? null : [selectFile(file.id), toggleFilesPageOn()]"
+		>
+			{{ (file.title !== '') ? file.title : 'Default...' }}
+		</div>
+		<div class="file-modal-delete click" (click)="deleteFile(file.id)">
+			X
+		</div>
+	</div>
+	<div class="file-modal-button click" (click)="createFile()">+</div>
+</app-info-page>
+
+<app-info-page
+	[title]="'Temas do Sistema'"
+	[show]="themePageOn"
+	[buttonName]="'Ok'"
+	[smallSize]="true"
+	[closeEnter]="true"
+	[closeSpace]="true"
+	(buttonClick)="toggleThemePageOn()"
+>
+
+</app-info-page>
+
+<app-info-page
+	[title]="'Link copiado!'"
+	[show]="linkCopyOn"
+	[hasContent]="false"
+	[buttonName]="'Ok'"
+	[smallSize]="true"
+	[closeEnter]="true"
+	[closeSpace]="true"
+	[closeClick]="true"
+	(buttonClick)="toggleCopyLink()"
+/>
+
+<app-info-page
+	[title]="'Ajuda'"
+	[show]="infoPageOn"
+	[largeSize]="true"
+	[closeEnter]="true"
+	[closeSpace]="true"
+	[closeClick]="true"
+	(buttonClick)="toggleInfoPageOn()"
+>
+	Content
+</app-info-page>

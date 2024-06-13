@@ -1,27 +1,24 @@
+import { IFileModel } from "./IFileModel";
 
 export default class PageModel
 {
 	public pageOn: boolean = false;
 
 	public pageTitle: string = '';
-	public pageSlug: string = '';
+	public titleSlug: string = '';
 	public pinSlug: string = '';
 
 	public pageHasPassword: boolean = true;
-	public pagePasswordOn: boolean = false;
 
-	public titleCurrentFile: string = '';
-	public contentCurrentFile: string[] = [];
+	public fileUpdateOn: boolean = true;
+	public fileList: IFileModel[] = [];
+	public currentFile: IFileModel | null = null;
 
-	public pageErrorOn: boolean = false;
-	public pageErrorTitle: string = '';
-	public pageErrorContent: string = '';
-
-	public setPageSlug(slug: string): boolean
+	public setTitleSlug(slug: string): boolean
 	{
 		if ((slug !== "") && (slug.length <= 25))
 		{
-			this.pageSlug = slug;
+			this.titleSlug = slug;
 			return true;
 		}
 

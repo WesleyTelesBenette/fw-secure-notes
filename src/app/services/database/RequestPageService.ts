@@ -7,6 +7,7 @@ import DatabaseProperties from './DatabaseProperties';
 import JwtTokenService from '../jwt-token/JwtTokenService';
 import IResponseBoolModel, { ResponseBoolModel } from '../../models/response/IResponseBoolModel';
 import IResponseMapIntStringModel, { ResponseMapIntStringModel } from '../../models/response/IResponseMapIntStringModel';
+import { IResponseFileArrayModel, ResponseFileArrayModel } from '../../models/response/IResponseFileArrayModel';
 
 @Injectable({providedIn: 'root'})
 export default class RequestPageService
@@ -81,10 +82,30 @@ export default class RequestPageService
 
 	// }
 
-	// public getPageFileList(): ResponseObject | null
-	// {
+	public async getFileList(title: string, pin: string): Promise<IResponseFileArrayModel>
+	{
+		try
+		{
+			const url = `${this._urlService}${title}/${pin}/files/`;
+			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
+			const response = firstValueFrom(
+				this._http.get<IResponseFileArrayModel>(url, { headers: headers }).pipe(
+					catchError(error =>
+					{
+						this.statusCode = error.status;
+						throw Error;
+					})
+				)
+			);
 
-	// }
+			return await response;
+		}
+		catch
+		{
+			let errorObjet: IResponseFileArrayModel = new ResponseFileArrayModel('Error', this.statusCode, null);
+			return errorObjet;
+		}
+	}
 
 	// public createPage(): ResponseObject | null
 	// {
