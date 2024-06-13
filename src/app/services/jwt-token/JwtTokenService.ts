@@ -1,21 +1,28 @@
-import { Injectable } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 
 @Injectable({providedIn: 'root'})
 export default class JwtTokenService
 {
+	constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+
 	public getToken(): string
 	{
 		let token: string | null = null;
 		const name = 'token=';
-		const cookieList = document.cookie.split(';');
 
-		for (let c = 0; c < cookieList.length; c++)
+		if (isPlatformBrowser(this.platformId))
 		{
-			let thisCookie = cookieList[c].trim();
-			if (thisCookie.startsWith(name))
+			const cookieList = document.cookie.split(';');
+
+			for (let c = 0; c < cookieList.length; c++)
 			{
-				token = thisCookie.substring(name.length);
-				break;
+				let thisCookie = cookieList[c].trim();
+				if (thisCookie.startsWith(name))
+				{
+					token = thisCookie.substring(name.length);
+					break;
+				}
 			}
 		}
 
@@ -24,10 +31,13 @@ export default class JwtTokenService
 
 	public setToken(token: string): void
 	{
-		const days = 1;
-		const date = new Date();
-		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		if (isPlatformBrowser(this.platformId))
+		{
+			const days = 1;
+			const date = new Date();
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 
-		document.cookie = `token=${token ?? ""}; expires=${date.toUTCString()}; path=/`;
+			document.cookie = `token=${token ?? ""}; expires=${date.toUTCString()}; path=/`;
+		}
 	}
 }

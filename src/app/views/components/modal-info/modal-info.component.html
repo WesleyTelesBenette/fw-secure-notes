@@ -1,6 +1,6 @@
 
 <div
-	class="modal fade show"
+	class="modal bg-black bg-opacity-75"
 	[ngClass]="
 	[
 		show ? 'anim-modal-on' : 'anim-modal-off'
@@ -8,22 +8,31 @@
 	#modalHomePage
 	id="modalHomePage"
 	tabindex="-1"
-	aria-labelledby="modalHomePageLabel"
 	aria-hidden="true"
 >
-	<div class="modal-dialog modal-dialog-centered">
+	<div
+		class="modal-dialog modal-dialog-centered"
+		[ngClass]="{'modal-sm': smallSize, 'modal-lg': largeSize}"
+	>
 		<div class="modal-content modal-home-page">
 
-			<div class="modal-header header">
-				<h1 class="title" id="modalHomePageLabel">{{ title }}</h1>
+			<div *ngIf="hasTitle" class="modal-header header">
+				<h1 class="title">{{ title }}</h1>
 			</div>
 
-			<div class="modal-body content">
+			<div *ngIf="hasContent" class="modal-body content">
 				<ng-content/>
 			</div>
 
-			<div class="modal-footer footer">
-				<button type="button" class="button click" [ngClass]="show ? 'show-button' : 'hiden-button'" (click)="clickOn()" (click)="show = false">{{ buttonName }}</button>
+			<div *ngIf="hasButton" class="modal-footer footer">
+				<button
+					type="button"
+					class="button click"
+					[ngClass]="show ? 'show-button' : 'hiden-button'"
+					(click)="closeClick ? null : clickOn()"
+				>
+					{{ buttonName }}
+				</button>
 			</div>
 		</div>
 	</div>
