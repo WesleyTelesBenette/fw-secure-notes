@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 	templateUrl: './input-password.component.html',
 	styleUrl: './input-password.component.scss'
 })
-export class InputPasswordComponent
+export default class InputPasswordComponent
 {
 	@Input() password: string = '';
 	@Input() placeholder: string = '';

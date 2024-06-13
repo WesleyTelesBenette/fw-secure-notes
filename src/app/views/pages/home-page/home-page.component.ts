@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { FooterComponent } from '../../components/footer/footer.component';
-import { ModalInfoComponent } from '../../components/modal-info/modal-info.component';
+import FooterComponent from '../../components/footer/footer.component';
+import ModalInfoComponent from '../../components/modal-info/modal-info.component';
 import { CommonModule } from '@angular/common';
 
 /** Componente da página principal da aplicação.
