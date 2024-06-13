@@ -42,7 +42,7 @@ export default class HeaderNotePageComponent implements OnInit
 	{
 		await this.getFileList();
 		this.currentPage.currentFile = this.currentPage.fileList[0];
-		this.currentPage.fileUpdateOn = false;
+		this.loadFile.emit();
 	}
 
 	public selectFile(id: number)
@@ -77,6 +77,7 @@ export default class HeaderNotePageComponent implements OnInit
 	{
 		try
 		{
+			this.currentPage.fileUpdateOn = true;
 			this.toggleFilesPageOn();
 
 			const response = await this._file
@@ -84,9 +85,9 @@ export default class HeaderNotePageComponent implements OnInit
 
 			if (response.statusCode == 201)
 			{
-				this.selectFile(response.content?.id!);
+				this.currentPage.fileList[this.currentPage.fileList.length-1] = response.content;
+				this.selectFile(response.content.id);
 				this.getFileList();
-				this.currentPage.fileUpdateOn = false;
 			}
 		}
 		catch { this.throwError.emit(); }

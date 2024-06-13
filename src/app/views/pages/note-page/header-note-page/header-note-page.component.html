@@ -70,8 +70,8 @@
 	<div class="files-modal" *ngFor="let file of currentPage.fileList">
 		<div
 			class="file-modal"
-			[ngClass]="(file.id === currentPage.currentFile?.id) ? 'file-modal-select' : 'click'"
-			(click)="(file.id === currentPage.currentFile?.id) ? null : [selectFile(file.id), toggleFilesPageOn()]"
+			[ngClass]="(file.id === currentPage.currentFile.id) ? 'file-modal-select' : 'click'"
+			(click)="(file.id === currentPage.currentFile.id) ? null : [selectFile(file.id), toggleFilesPageOn()]"
 		>
 			{{ (file.title !== '') ? file.title : 'Default...' }}
 		</div>

@@ -7,6 +7,7 @@ import DatabaseProperties from "./DatabaseProperties";
 import JwtTokenService from "../jwt-token/JwtTokenService";
 import { IResponseFileModel, ResponseFileModel } from "../../models/response/IResponseFileModel";
 import IResponseBoolModel, { ResponseBoolModel } from "../../models/response/IResponseBoolModel";
+import { FileModel } from "../../models/general/IFileModel";
 
 @Injectable({providedIn: 'root'})
 export default class RequestFileService
@@ -26,6 +27,7 @@ export default class RequestFileService
 
 	public async getFileId(title: string, pin: string, id: number): Promise<IResponseFileModel>
 	{
+		console.log('Pegando o arquivo');
 		try
 		{
 			const url = `${this._urlService}${title}/${pin}/${id}/`;
@@ -40,11 +42,13 @@ export default class RequestFileService
 				)
 			);
 
+			console.log("Meu pai: " + (await response).statusCode);
 			return await response;
 		}
 		catch
 		{
-			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, null);
+			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', []));
+			console.log('crachou');
 			return errorObjet;
 		}
 	}
@@ -70,7 +74,7 @@ export default class RequestFileService
 		}
 		catch
 		{
-			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, null);
+			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', []));
 			return errorObjet;
 		}
 	}

@@ -197,10 +197,27 @@ export class NotePageComponent implements OnInit
 		this.pageSubject.next(this.currentPage);
 	}
 
-	public loadFileData()
+	public async loadFileData()
 	{
-		this.currentPage.fileUpdateOn = false;
-		this.updatePage();
+		try
+		{
+			const response = await this._file
+				.getFileId(this.currentPage.titleSlug, this.currentPage.pinSlug, this.currentPage.currentFile.id);
+
+			if (response.statusCode == 200)
+			{
+				this.currentPage.currentFile = response.content;
+				this.currentPage.fileUpdateOn = false;
+				this.updatePage();
+				return;
+			}
+
+			throw Error;
+		}
+		catch
+		{
+			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
+		}
 	}
 
 

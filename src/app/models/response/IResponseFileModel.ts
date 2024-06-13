@@ -4,7 +4,7 @@ export interface IResponseFileModel
 {
 	message: string | null;
 	statusCode: number;
-	content: IFileModel | null;
+	content: IFileModel;
 }
 
 export class ResponseFileModel implements IResponseFileModel
@@ -12,6 +12,6 @@ export class ResponseFileModel implements IResponseFileModel
 	public constructor(
 		public message: string | null,
 		public statusCode: number,
-		public content: IFileModel | null
+		public content: IFileModel
 	) {}
 }

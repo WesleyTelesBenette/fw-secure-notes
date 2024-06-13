@@ -1,4 +1,4 @@
-import { IFileModel } from "./IFileModel";
+import { FileModel, IFileModel } from "./IFileModel";
 
 export default class PageModel
 {
@@ -12,7 +12,7 @@ export default class PageModel
 
 	public fileUpdateOn: boolean = true;
 	public fileList: IFileModel[] = [];
-	public currentFile: IFileModel | null = null;
+	public currentFile: IFileModel = new FileModel(0, '', []);
 
 	public setTitleSlug(slug: string): boolean
 	{
