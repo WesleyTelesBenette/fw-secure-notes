@@ -7,7 +7,6 @@ import JwtTokenService from '../../../../services/jwt-token/JwtTokenService';
 import RequestFileService from '../../../../services/database/RequestFileService';
 import PageModel from '../../../../models/general/PageModel';
 import RequestPageService from '../../../../services/database/RequestPageService';
-import { IFileModel } from '../../../../models/general/IFileModel';
 
 @Component
 ({
@@ -47,7 +46,7 @@ export default class HeaderNotePageComponent implements OnInit
 
 	public selectFile(id: number)
 	{
-		this.currentPage.fileUpdateOn = true;
+		this.currentPage.fileUpdateContentOn = true;
 		const file = this.currentPage.fileList.find(f => f.id === id);
 		this.currentPage.currentFile = file!;
 		this.loadFile.emit();
@@ -63,7 +62,7 @@ export default class HeaderNotePageComponent implements OnInit
 	{
 		try
 		{
-			this.currentPage.fileUpdateOn = true;
+			this.currentPage.fileUpdateContentOn = true;
 
 			const files = await this._page
 				.getFileList(this.currentPage.titleSlug, this.currentPage.pinSlug);
@@ -77,7 +76,7 @@ export default class HeaderNotePageComponent implements OnInit
 	{
 		try
 		{
-			this.currentPage.fileUpdateOn = true;
+			this.currentPage.fileUpdateContentOn = true;
 			this.toggleFilesPageOn();
 
 			const response = await this._file

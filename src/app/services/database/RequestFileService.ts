@@ -27,7 +27,6 @@ export default class RequestFileService
 
 	public async getFileId(title: string, pin: string, id: number): Promise<IResponseFileModel>
 	{
-		console.log('Pegando o arquivo');
 		try
 		{
 			const url = `${this._urlService}${title}/${pin}/${id}/`;
@@ -42,13 +41,11 @@ export default class RequestFileService
 				)
 			);
 
-			console.log("Meu pai: " + (await response).statusCode);
 			return await response;
 		}
 		catch
 		{
 			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', []));
-			console.log('crachou');
 			return errorObjet;
 		}
 	}

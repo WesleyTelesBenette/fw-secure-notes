@@ -61,12 +61,6 @@ export default class ModalInfoComponent implements AfterViewInit
 				modal.classList.remove('hiden-modal');
 		});
 
-		this.keyupListener = this.renderer.listen('document', 'keyup', (event: KeyboardEvent) =>
-		{
-			if (event.key === 'Enter')
-				console.log('ainda')
-		});
-
 		if (this.closeEnter)
 		{
 			this.keyupListener = this.renderer.listen('document', 'keyup', (event: KeyboardEvent) =>

@@ -10,7 +10,8 @@ export default class PageModel
 
 	public pageHasPassword: boolean = true;
 
-	public fileUpdateOn: boolean = true;
+	public fileUpdateTitleOn: boolean = false;
+	public fileUpdateContentOn: boolean = true;
 	public fileList: IFileModel[] = [];
 	public currentFile: IFileModel = new FileModel(0, '', []);
 

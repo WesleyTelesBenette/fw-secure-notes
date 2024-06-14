@@ -1,6 +1,8 @@
 
 <ng-container *ngIf="!currentPage.pageOn">
-	<div class="loading-background"></div>
+	<div class="loading-background">
+		<app-loading-content-page/>
+	</div>
 </ng-container>
 
 <ng-container *ngIf="currentPage.pageOn">
@@ -12,21 +14,28 @@
 				(throwError)="errorPage($event)"
 				(loadFile)="loadFileData()"
 			/>
-			<main [ngClass]="{'main-loading-file': currentPage.fileUpdateOn}">
-				<ng-container class="full" *ngIf="currentPage.fileUpdateOn">
+			<main [ngClass]="{'main-loading-file': currentPage.fileUpdateContentOn}">
+				<ng-container class="full" *ngIf="currentPage.fileUpdateContentOn">
 					<app-loading-content-page/>
 				</ng-container>
 
-				<ng-container *ngIf="!currentPage.fileUpdateOn">
+				<ng-container *ngIf="!currentPage.fileUpdateContentOn">
+					<app-loading-content-page class="title" *ngIf="currentPage.fileUpdateTitleOn"/>
 					<input
+						*ngIf="!currentPage.fileUpdateTitleOn"
+						#titleInput
 						class="title"
 						type="text"
 						placeholder="Default..."
+						maxlength="50"
 						[value]="((currentPage.fileList.length > 0) && (currentPage.currentFile != null))
 							? currentPage.currentFile.title
-							: 'Default...'"
+							: ''"
+						(focus)="setEvents()"
 					/>
+
 					<hr class="hr"/>
+
 					<textarea class="content"></textarea>
 				</ng-container>
 			</main>

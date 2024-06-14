@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 import PageModel from '../../../models/general/PageModel';
-
 import RequestPageService from '../../../services/database/RequestPageService';
 import RequestAuthorizationService from '../../../services/database/RequestAuthorizationService';
 import JwtTokenService from '../../../services/jwt-token/JwtTokenService';
@@ -16,6 +15,7 @@ import InputPasswordComponent from '../../components/input-password/input-passwo
 import HeaderNotePageComponent from './header-note-page/header-note-page.component';
 import RequestFileService from '../../../services/database/RequestFileService';
 import { LoadingContentPageComponent } from '../../components/loading-content-page/loading-content-page.component';
+import { FileModel } from '../../../models/general/IFileModel';
 
 @Component
 ({
@@ -36,6 +36,9 @@ export class NotePageComponent implements OnInit
 	private pageSubject = new BehaviorSubject<PageModel>(new PageModel());
 	private page$ = this.pageSubject.asObservable();
 	public currentPage!: PageModel;
+
+	@ViewChild('titleInput') titleInput!: ElementRef<HTMLInputElement>;
+	public titleInputOn: boolean = false;
 
 	public pagePasswordOn: boolean = false;
 	public inputPasswordModal: string = '';
@@ -117,6 +120,29 @@ export class NotePageComponent implements OnInit
 		return false;
 	}
 
+	public setEvents()
+	{
+		const inputElement = this.titleInput.nativeElement;
+
+		const inputTitleEvent = () =>
+		{
+			console.log('Event...');
+			this.currentPage.currentFile.title = inputElement.value;
+			this.updatePage();
+			this.updateFileTitle();
+			inputElement.removeEventListener('focusout', inputTitleEvent)
+		};
+
+		inputElement.addEventListener('focusout', inputTitleEvent);
+	}
+
+	private async initPage(): Promise<void>
+	{
+		this.currentPage.pageOn = true;
+		this.updatePage();
+	}
+
+
 	private async callTokenValide(): Promise<boolean>
 	{
 		if (this._token.getToken() === "")
@@ -183,12 +209,6 @@ export class NotePageComponent implements OnInit
 	}
 
 
-	private async initPage(): Promise<void>
-	{
-		this.currentPage.pageOn = true;
-		this.updatePage();
-	}
-
 	public updatePage(newData: PageModel | null | any = null): void
 	{
 		if (newData)
@@ -207,7 +227,7 @@ export class NotePageComponent implements OnInit
 			if (response.statusCode == 200)
 			{
 				this.currentPage.currentFile = response.content;
-				this.currentPage.fileUpdateOn = false;
+				this.currentPage.fileUpdateContentOn = false;
 				this.updatePage();
 				return;
 			}
@@ -218,6 +238,58 @@ export class NotePageComponent implements OnInit
 		{
 			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
 		}
+	}
+
+	public async updateFileTitle()
+	{
+		const inputValue = this.titleInput.nativeElement.value;
+		const oldFileIndex = this.currentPage.fileList.indexOf
+		(
+			this.currentPage.fileList.find(f => f.id == this.currentPage.currentFile.id)
+			?? new FileModel(-1, '', [])
+		);
+
+		if ((oldFileIndex === -1) || (this.currentPage.fileList[oldFileIndex].title == inputValue))
+			return;
+
+		this.currentPage.fileUpdateTitleOn = true;
+
+		try
+		{
+			const response = await this._file
+				.updateFileTitle
+				(
+					this.currentPage.titleSlug,
+					this.currentPage.pinSlug,
+					this.currentPage.currentFile.id,
+					inputValue
+				);
+
+			if (response.statusCode === 200)
+			{
+				this.currentPage.fileList[oldFileIndex].title = inputValue;
+				this.currentPage.fileList = this.currentPage.fileList.sort((a, b) =>
+				{
+					if (a.title < b.title)
+						return -1;
+					return 1;
+				});
+				this.currentPage.currentFile.title = inputValue;
+				this.currentPage.fileUpdateTitleOn = false;
+				return;
+			}
+
+			throw Error;
+		}
+		catch
+		{
+			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
+		}
+	}
+
+	public async updateFileContent()
+	{
+
 	}
 
 
