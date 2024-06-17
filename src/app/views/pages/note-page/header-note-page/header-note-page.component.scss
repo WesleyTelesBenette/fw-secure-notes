@@ -109,6 +109,11 @@ header
 		animation: fileModalOn 0.5s ease-in-out;
 	}
 
+	.file-modal-empty
+	{
+		color: var(--background-normal);
+	}
+
 	.file-modal-delete
 	{
 		display: flex;

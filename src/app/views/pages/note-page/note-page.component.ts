@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,13 @@ import HeaderNotePageComponent from './header-note-page/header-note-page.compone
 import RequestFileService from '../../../services/database/RequestFileService';
 import { LoadingContentPageComponent } from '../../components/loading-content-page/loading-content-page.component';
 import { FileModel } from '../../../models/general/IFileModel';
+import MapIntString from '../../../models/general/MapIntString';
+
+export type TypeErrorPage =
+	'400 - Bad Request'
+	| '401 - Unauthorized'
+	| '404 - Not Found'
+	| '500 - Internal Server Error';
 
 @Component
 ({
@@ -31,12 +38,13 @@ import { FileModel } from '../../../models/general/IFileModel';
 	templateUrl: './note-page.component.html',
 	styleUrl: './note-page.component.scss'
 })
-export class NotePageComponent implements OnInit
+export class NotePageComponent implements OnInit, AfterViewChecked
 {
 	private pageSubject = new BehaviorSubject<PageModel>(new PageModel());
 	private page$ = this.pageSubject.asObservable();
 	public currentPage!: PageModel;
 
+	@ViewChild('contentFile') content!: ElementRef<HTMLDivElement>;
 	@ViewChild('titleInput') titleInput!: ElementRef<HTMLInputElement>;
 	public titleInputOn: boolean = false;
 
@@ -56,6 +64,10 @@ export class NotePageComponent implements OnInit
 		private _token: JwtTokenService
 	) { }
 
+
+	//##############################
+	// * SETUP *
+	//##############################
 	public async ngOnInit(): Promise<void>
 	{
 		this.page$.subscribe(page =>
@@ -120,22 +132,6 @@ export class NotePageComponent implements OnInit
 		return false;
 	}
 
-	public setEvents()
-	{
-		const inputElement = this.titleInput.nativeElement;
-
-		const inputTitleEvent = () =>
-		{
-			console.log('Event...');
-			this.currentPage.currentFile.title = inputElement.value;
-			this.updatePage();
-			this.updateFileTitle();
-			inputElement.removeEventListener('focusout', inputTitleEvent)
-		};
-
-		inputElement.addEventListener('focusout', inputTitleEvent);
-	}
-
 	private async initPage(): Promise<void>
 	{
 		this.currentPage.pageOn = true;
@@ -143,6 +139,9 @@ export class NotePageComponent implements OnInit
 	}
 
 
+	//##############################
+	// * SECURITY *
+	//##############################
 	private async callTokenValide(): Promise<boolean>
 	{
 		if (this._token.getToken() === "")
@@ -209,6 +208,9 @@ export class NotePageComponent implements OnInit
 	}
 
 
+	//##############################
+	// * PAGE *
+	//##############################
 	public updatePage(newData: PageModel | null | any = null): void
 	{
 		if (newData)
@@ -217,29 +219,10 @@ export class NotePageComponent implements OnInit
 		this.pageSubject.next(this.currentPage);
 	}
 
-	public async loadFileData()
-	{
-		try
-		{
-			const response = await this._file
-				.getFileId(this.currentPage.titleSlug, this.currentPage.pinSlug, this.currentPage.currentFile.id);
 
-			if (response.statusCode == 200)
-			{
-				this.currentPage.currentFile = response.content;
-				this.currentPage.fileUpdateContentOn = false;
-				this.updatePage();
-				return;
-			}
-
-			throw Error;
-		}
-		catch
-		{
-			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
-		}
-	}
-
+	//##############################
+	// * FILES *
+	//##############################
 	public async updateFileTitle()
 	{
 		const inputValue = this.titleInput.nativeElement.value;
@@ -287,12 +270,284 @@ export class NotePageComponent implements OnInit
 		}
 	}
 
-	public async updateFileContent()
+	public setTitleEvents()
 	{
+		const inputTitle = this.titleInput.nativeElement;
 
+		const inputTitleEvent = () =>
+		{
+			this.currentPage.currentFile.title = inputTitle.value;
+			this.updatePage();
+			this.updateFileTitle();
+			inputTitle.removeEventListener('focusout', inputTitleEvent)
+		};
+
+		const clickTitleEvent = (event: KeyboardEvent) =>
+		{
+			if (event.key === 'Enter')
+			{
+				inputTitle.blur();
+				inputTitle.removeEventListener('keyup', clickTitleEvent);
+			}
+		}
+
+		inputTitle.addEventListener('focusout', inputTitleEvent);
+		inputTitle.addEventListener('keyup', clickTitleEvent);
+	}
+
+	public async loadFileData()
+	{
+		try
+		{
+			const response = await this._file
+				.getFileId(this.currentPage.titleSlug, this.currentPage.pinSlug, this.currentPage.currentFile.id);
+
+			if (response.statusCode == 200)
+			{
+				const data = response.content;
+				let fileData: MapIntString[] = [];
+
+				for (let c = 0; c < data.content.length; c++)
+					fileData.push(new MapIntString(c, data.content[c]));
+
+				this.currentPage.currentFileIndex = fileData.length - 1;
+				this.currentPage.currentFile = new FileModel(data.id, data.title, []);
+				this.currentPage.currentFileData  = fileData;
+				this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
+
+				this.currentPage.fileUpdateContentOn = false;
+				this.updatePage();
+				return;
+			}
+
+			throw Error;
+		}
+		catch
+		{
+			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
+		}
+	}
+
+	//##############################
+	// * LINES *
+	//##############################
+	public lineEventUpdateWithFocus(event: Event, indexShow: number, indexFile: number)
+	{
+		const elementInput = event.target as HTMLInputElement;
+		const oldDataLine = this.currentPage.currentFileDataCopy.find(f => f.index === indexFile);
+
+		if ((oldDataLine) && (oldDataLine.line != elementInput.value))
+		{
+			this.updateFileLineContent(indexShow, indexFile, elementInput.value);
+		}
+	};
+
+	public lineEventChangeWithClick(event: KeyboardEvent, indexShow: number, indexFile: number)
+	{
+		const elementInput = event.target as HTMLInputElement;
+
+		if (elementInput === document.activeElement)
+		{
+			const dataLine = this.currentPage.currentFileDataCopy.find(f => f.index === indexFile);
+
+			if (dataLine)
+			{
+				if (event.key === 'Enter')
+				{
+					elementInput.blur();
+					this.updateFileAddLine(indexShow+1);
+					return;
+				}
+
+				if((event.key === 'Backspace') && (elementInput.value === '') && (this.currentPage.currentFileData.length > 1))
+				{
+					this.updateFileRemoveLine(indexShow, indexFile);
+					return;
+				}
+			}
+		}
+	}
+
+	public ngAfterViewChecked(): void
+	{
+		if ((this.currentPage.currentSelectFiles.length > 0) && (this.content !== undefined))
+		{
+			const divInputs = this.content.nativeElement as HTMLDivElement;
+
+			if (divInputs)
+			{
+				const lineDivs = divInputs.querySelectorAll('.line');
+
+				const firstLineFocus = this.currentPage.currentFileData
+					.find(f => f.index === this.currentPage.currentSelectFiles[0]);
+
+				console.log('Update view');
+				console.log('len: ', this.currentPage.currentSelectFiles.length);
+
+				if (firstLineFocus)
+				{
+					const firstLineFocusIndex = this.currentPage.currentFileData.indexOf(firstLineFocus);
+
+					if ((firstLineFocusIndex != -1) && (lineDivs.length >= firstLineFocusIndex))
+					{
+						const inputDiv = lineDivs[firstLineFocusIndex] as HTMLDivElement;
+
+						if (inputDiv)
+						{
+							const input = inputDiv.querySelector('.line-content') as HTMLInputElement;
+
+							if (input)
+							{
+								input.blur();
+								input.focus();
+								this.currentPage.currentSelectFiles.splice(0, 1);
+								this.updatePage();
+								return;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public selectInput(input: HTMLInputElement, index: number)
+	{
+		input.focus();
+		this.currentPage.currentSelectFiles.splice(index, 1);
+	}
+
+	private async updateFileAddLine(indexShow: number)
+	{
+		const currentFileIndex = ++this.currentPage.currentFileIndex;
+		this.currentPage.currentFileData.splice(indexShow, 0, new MapIntString(currentFileIndex, ""));
+		this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
+		this.currentPage.currentUpdateFileLines.push(currentFileIndex);
+		this.updatePage();
+
+		try
+		{
+			var resonse = await this._file.updateFileAddLine
+			(
+				this.currentPage.titleSlug,
+				this.currentPage.pinSlug,
+				this.currentPage.currentFile.id,
+				indexShow
+			);
+
+			if (resonse.statusCode == 200)
+			{
+				const lineUpdateIndex = this.currentPage.currentUpdateFileLines.indexOf(currentFileIndex);
+
+				if (lineUpdateIndex != -1)
+				{
+					this.currentPage.currentUpdateFileLines.splice(lineUpdateIndex, 1);
+					this.currentPage.currentSelectFiles.push(currentFileIndex);
+					this.updatePage();
+					return;
+				}
+			}
+
+			throw Error;
+		}
+		catch
+		{
+			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
+		}
+	}
+
+	private async updateFileLineContent(indexShow: number, indexFile: number, content: string)
+	{
+		const fileLine = this.currentPage.currentFileData.find(f => f.index === indexFile);
+		const fileUpdate = this.currentPage.currentUpdateFileLines.indexOf(indexFile);
+
+		if ((fileLine === undefined) || (fileUpdate !== -1))
+			return;
+
+		const fileLineIndex = this.currentPage.currentFileData.indexOf(fileLine);
+		this.currentPage.currentFileData[fileLineIndex].line = content;
+		this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
+		this.currentPage.currentUpdateFileLines.push(indexFile);
+		this.updatePage();
+
+		try
+		{
+			var resonse = await this._file.updateFileLineContent
+			(
+				this.currentPage.titleSlug,
+				this.currentPage.pinSlug,
+				this.currentPage.currentFile.id,
+				indexShow,
+				content
+			);
+
+			if (resonse.statusCode == 200)
+			{
+				const lineUpdateIndex = this.currentPage.currentUpdateFileLines.indexOf(indexFile);
+
+				if (lineUpdateIndex != -1)
+				{
+					this.currentPage.currentUpdateFileLines.splice(lineUpdateIndex, 1);
+					return;
+				}
+			}
+
+			throw Error;
+		}
+		catch
+		{
+			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
+		}
+	}
+
+	private async updateFileRemoveLine(indexShow: number, indexFile: number)
+	{
+		this.currentPage.currentUpdateFileLines.push(indexFile);
+		this.updatePage();
+
+		const lineIndexFileFocus = this.currentPage
+			.currentFileData[(indexShow > 0) ? indexShow-1 : 0].index;
+
+		console.log('indexShow: ', indexShow);
+		console.log('IndexFocus: ', lineIndexFileFocus);
+
+		try
+		{
+			var response = await this._file.updateFileRemoveLine
+			(
+				this.currentPage.titleSlug,
+				this.currentPage.pinSlug,
+				this.currentPage.currentFile.id,
+				indexShow
+			);
+
+			if (response.statusCode == 200)
+			{
+				const lineUpdateIndex = this.currentPage.currentUpdateFileLines.indexOf(indexFile);
+
+				if (lineUpdateIndex != -1)
+				{
+					this.currentPage.currentUpdateFileLines.splice(lineUpdateIndex, 1);
+					this.currentPage.currentFileData.splice(indexShow, 1);
+					this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
+					this.currentPage.currentSelectFiles.push(lineIndexFileFocus);
+					this.updatePage();
+					return;
+				}
+			}
+
+			throw Error;
+		}
+		catch
+		{
+			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
+		}
 	}
 
 
+	//##############################
+	// * ERROR *
+	//##############################
 	public errorPage(
 		error: TypeErrorPage = '500 - Internal Server Error',
 		message: string = 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :('): void
@@ -311,9 +566,3 @@ export class NotePageComponent implements OnInit
 		this._router.navigate(['']);
 	}
 }
-
-type TypeErrorPage =
-	'400 - Bad Request'
-	| '401 - Unauthorized'
-	| '404 - Not Found'
-	| '500 - Internal Server Error';

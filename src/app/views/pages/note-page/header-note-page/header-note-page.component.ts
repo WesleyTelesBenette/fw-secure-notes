@@ -22,8 +22,6 @@ export default class HeaderNotePageComponent implements OnInit
 	@Output() throwError: EventEmitter<any> = new EventEmitter<any>();
 	@Output() loadFile: EventEmitter<any> = new EventEmitter<any>();
 
-	public headerMode: headerModes = 'edit';
-
 	public filesPageOn: boolean = false;
 	public themePageOn: boolean = false;
 	public infoPageOn: boolean = false;
@@ -47,8 +45,7 @@ export default class HeaderNotePageComponent implements OnInit
 	public selectFile(id: number)
 	{
 		this.currentPage.fileUpdateContentOn = true;
-		const file = this.currentPage.fileList.find(f => f.id === id);
-		this.currentPage.currentFile = file!;
+		this.currentPage.currentFile.id = id;
 		this.loadFile.emit();
 	}
 
@@ -125,8 +122,8 @@ export default class HeaderNotePageComponent implements OnInit
 		this._router.navigate(['']);
 	}
 
-	public toggleHeaderMode(mode: headerModes)
-		{ this.headerMode = mode; }
+	public togglePageShowMode(mode: 'edit' | 'view')
+		{ this.currentPage.pageShowMode = mode; }
 
 	public toggleFilesPageOn()
 		{ this.filesPageOn = !this.filesPageOn; }
@@ -141,4 +138,3 @@ export default class HeaderNotePageComponent implements OnInit
 		{ this.linkCopyOn = !this.linkCopyOn; }
 }
 
-type headerModes = 'edit' | 'view';

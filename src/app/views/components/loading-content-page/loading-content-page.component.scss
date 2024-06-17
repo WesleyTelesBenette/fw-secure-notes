@@ -11,11 +11,12 @@
 
 .loading-circle
 {
-	position: fixed;
+	position:absolute;
 	z-index: 1;
 
-	width: 30px;
 	height: 30px;
+	max-height: 100%;
+	aspect-ratio: 1 / 1;
 	border: 5px solid var(--text-dark);
 	border-left: none;
 	border-right: none;
@@ -25,6 +26,13 @@
 	border-bottom-right-radius: 50px;
 	animation: spin 0.8s linear infinite;
 }
+
+.loading-circle-small
+{
+	height: 20px;
+	max-height: 80%;
+}
+
 
 .loading-circle-animation-1 { rotate: 45deg;  }
 .loading-circle-animation-2 { rotate: 135deg; }

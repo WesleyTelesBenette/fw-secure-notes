@@ -14,28 +14,28 @@
 			<div class="edit-view">
 				<div
 					class="headerMode"
-					[ngClass]="{'edit': headerMode == 'edit'}"
-					(click)="toggleHeaderMode('edit')"
+					[ngClass]="{'edit': currentPage.pageShowMode == 'edit'}"
+					(click)="togglePageShowMode('edit')"
 					title="Modo de edição"
 				>
 					<img
 					class="image click"
-					[ngClass]="{'view-image': headerMode == 'edit'}"
-					[src]="headerMode == 'edit'
+					[ngClass]="{'view-image': currentPage.pageShowMode == 'edit'}"
+					[src]="currentPage.pageShowMode == 'edit'
 						? './assets/edit.svg'
 						: './assets/edit-dark.svg'"
 					/>
 				</div>
 				<div
 					class="headerMode"
-					[ngClass]="{'view': headerMode == 'view'}"
-					(click)="toggleHeaderMode('view')"
+					[ngClass]="{'view': currentPage.pageShowMode == 'view'}"
+					(click)="togglePageShowMode('view')"
 					title="Modo de visualização"
 				>
 					<img
 					class="image click"
-					[ngClass]="{'edit-image': headerMode == 'view'}"
-					[src]="headerMode == 'view'
+					[ngClass]="{'edit-image': currentPage.pageShowMode == 'view'}"
+					[src]="currentPage.pageShowMode == 'view'
 						? './assets/view.svg'
 						: './assets/view-dark.svg'"
 					/>
@@ -70,10 +70,14 @@
 	<div class="files-modal" *ngFor="let file of currentPage.fileList">
 		<div
 			class="file-modal"
-			[ngClass]="(file.id === currentPage.currentFile.id) ? 'file-modal-select' : 'click'"
+			[ngClass]="
+			[
+				(file.id === currentPage.currentFile.id) ? 'file-modal-select' : 'click',
+				(file.title === '') ? 'file-modal-empty' : ''
+			]"
 			(click)="(file.id === currentPage.currentFile.id) ? null : [selectFile(file.id), toggleFilesPageOn()]"
 		>
-			{{ (file.title !== '') ? file.title : '...' }}
+			{{ (file.title !== '') ? file.title : 'Default...' }}
 		</div>
 		<div *ngIf="currentPage.fileList.length > 1" class="file-modal-delete click" (click)="deleteFile(file.id)">
 			X

@@ -20,23 +20,52 @@
 				</ng-container>
 
 				<ng-container *ngIf="!currentPage.fileUpdateContentOn">
-					<app-loading-content-page class="title" *ngIf="currentPage.fileUpdateTitleOn"/>
+					<app-loading-content-page
+						class="title"
+						*ngIf="currentPage.fileUpdateTitleOn"
+					/>
 					<input
 						*ngIf="!currentPage.fileUpdateTitleOn"
 						#titleInput
 						class="title"
 						type="text"
 						placeholder="Default..."
-						maxlength="50"
+						maxlength="48"
 						[value]="((currentPage.fileList.length > 0) && (currentPage.currentFile != null))
 							? currentPage.currentFile.title
 							: ''"
-						(focus)="setEvents()"
+						(focus)="setTitleEvents()"
 					/>
 
 					<hr class="hr"/>
 
-					<textarea class="content"></textarea>
+					<div #contentFile class="content">
+						<div #content class="line" *ngFor="let item of currentPage.currentFileData; let i = index">
+							<input
+								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) === -1)
+									&&(currentPage.pageShowMode === 'edit')"
+								class="line-content"
+								(blur)="lineEventUpdateWithFocus($event, i, item.index)"
+								(keydown)="lineEventChangeWithClick($event, i, item.index)"
+								[value]="item.line"
+								placeholder="Digite suas anotações..."
+							>
+							<div
+								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) === -1)
+									&&(currentPage.pageShowMode === 'edit')"
+									class=""
+							>
+								X
+							</div>
+							<div
+								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) !== -1)
+									&&(currentPage.pageShowMode === 'edit')"
+								class="line-content line-content-loading"
+							>
+								<app-loading-content-page [smallSize]="true"/>
+							</div>
+						</div>
+					</div>
 				</ng-container>
 			</main>
 		</div>
