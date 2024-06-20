@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import FooterComponent from '../../components/footer/footer.component';
 import ModalInfoComponent from '../../components/modal-info/modal-info.component';
 import { CommonModule } from '@angular/common';
+import RequestPageService from '../../../services/database/RequestPageService';
+import { LoadingContentPageComponent } from '../../components/loading-content-page/loading-content-page.component';
 
 /** Componente da página principal da aplicação.
  *
@@ -13,80 +16,59 @@ import { CommonModule } from '@angular/common';
 ({
 	selector: 'app-home-page',
 	standalone: true,
-	imports: [CommonModule, FooterComponent, FormsModule, ModalInfoComponent],
+	imports: [CommonModule, FooterComponent, FormsModule, ModalInfoComponent, LoadingContentPageComponent],
 	templateUrl: './home-page.component.html',
 	styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent
 {
-	public pageName: string = '';
+	@ViewChild('inputTitleId') inputTitleId!: ElementRef<HTMLInputElement>;
+	@ViewChild('inputAddId') inputAddId!: ElementRef<HTMLInputElement>;
+	public loadCreatePage: boolean = false;
+	public inputTitle: string = '';
+	public inputAdd: string = '';
 	public infoModalOn: boolean = false;
 
-	public constructor()
+	public constructor(private _page: RequestPageService, private _router: Router) {}
+
+	public toggleInfoModalOn(): void
+		{ this.infoModalOn = !this.infoModalOn; }
+
+	public toggleLoadCreatePage(): void
+		{ this.loadCreatePage = true; }
+
+	public limitedInputTitle(): void
+		{ this.inputTitle = this.inputTitle.replace(/[^a-zA-Z0-9-]/g, '-'); }
+
+	public async createNote(): Promise<void>
 	{
+		const pageName = this.inputTitleId.nativeElement.value;
+		const pagePassword = this.inputAddId.nativeElement.value ?? '';
 
-	}
-
-	public toggleInfoModalOn()
-	{
-		this.infoModalOn = !this.infoModalOn;
-	}
-
-
-	/** Atributo que representa o conteúdo do ***input*** principal.
-	 *
-	 * Ele é (e deve ser) sincronizado pelo [(ngModel)].
-	 *
-	 * @type string
-	 */
-
-
-
-	/** Método que delimita os caracteres que podem ser utilizados para o nome de uma página.
-	 *
-	 * Ele filtra e altera diretamente o valor do conteúdo do ***input***.
-	 *
-	 * @returns void
-	 */
-	public limitedPageName(): void
-	{
-		let newPageName: string = this.pageName;
-
-		//Todas as letras, números e o hífen -> /[^a-zA-Z0-9-]
-		newPageName = newPageName.replace(/[^a-zA-Z0-9-]/g, '-');
-
-		this.pageName = newPageName;
-	}
-
-	/**
-	 *
-	 */
-	public createNote(): void
-	{
-		const inputContent: string = (document.getElementById('input') as HTMLInputElement)?.value;
-
-		if (((inputContent.replace(/[^a-zA-Z0-9-]/g, '-')) !== ''))
+		if (((pageName.replace(/[^a-zA-Z0-9-]/g, '-')) !== ''))
 		{
-			try
-			{
+			console.log('Criando...')
+			const newPage = await this._page.createPage(pageName, pagePassword);
 
+			if (newPage.content != null)
+			{
+				this._router.navigate([`page/${newPage.content.title}/${newPage.content.pin}`]);
 			}
-			catch(error)
+			else
 			{
-
+				this._router.navigate(['page/erro/err']);
 			}
 		}
 
 		return;
 	}
 
-	/**
-	 *
-	 */
-	public searchNote(): void
+	public async searchNote(): Promise<void>
 	{
-		const inputContent: string = (document.getElementById('input') as HTMLInputElement)?.value;
-		if (inputContent !== '') alert("Search: " + inputContent);
+		const pageName = this.inputTitleId.nativeElement.value;
+		const pagePin = this.inputAddId.nativeElement.value;
+
+		this._router.navigate([`page/${pageName}/${pagePin}`]);
 
 		return;
 	}
