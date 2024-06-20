@@ -17,6 +17,7 @@ import RequestFileService from '../../../services/database/RequestFileService';
 import { LoadingContentPageComponent } from '../../components/loading-content-page/loading-content-page.component';
 import { FileModel } from '../../../models/general/IFileModel';
 import MapIntString from '../../../models/general/MapIntString';
+import { MarkdownShowComponent } from '../../components/markdown-show/markdown-show.component';
 
 export type TypeErrorPage =
 	'400 - Bad Request'
@@ -33,10 +34,10 @@ export type TypeErrorPage =
 		CommonModule, FormsModule,
 		FooterComponent, ModalInfoComponent,
 		InputPasswordComponent, HeaderNotePageComponent,
-		LoadingContentPageComponent
+		LoadingContentPageComponent, MarkdownShowComponent
 	],
+	styleUrls: ['./note-page.component.scss', '../../components/markdown-show/markdown-show.component.scss'],
 	templateUrl: './note-page.component.html',
-	styleUrl: './note-page.component.scss'
 })
 export class NotePageComponent implements OnInit, AfterViewChecked
 {
@@ -500,7 +501,7 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		}
 	}
 
-	private async updateFileRemoveLine(indexShow: number, indexFile: number)
+	public async updateFileRemoveLine(indexShow: number, indexFile: number)
 	{
 		this.currentPage.currentUpdateFileLines.push(indexFile);
 		this.updatePage();

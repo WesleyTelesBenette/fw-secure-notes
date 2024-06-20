@@ -1,7 +1,7 @@
 
 <ng-container *ngIf="!currentPage.pageOn">
 	<div class="loading-background">
-		<app-loading-content-page/>
+		<app-loading-content-page showText="Carregando página..."/>
 	</div>
 </ng-container>
 
@@ -16,7 +16,7 @@
 			/>
 			<main [ngClass]="{'main-loading-file': currentPage.fileUpdateContentOn}">
 				<ng-container class="full" *ngIf="currentPage.fileUpdateContentOn">
-					<app-loading-content-page/>
+					<app-loading-content-page showText="Carregando Arquivo..."/>
 				</ng-container>
 
 				<ng-container *ngIf="!currentPage.fileUpdateContentOn">
@@ -27,7 +27,8 @@
 					<input
 						*ngIf="!currentPage.fileUpdateTitleOn"
 						#titleInput
-						class="title"
+						[ngClass]="['title', (currentPage.pageShowMode === 'view') ? 'title-no-edit' : '']"
+						[disabled]="currentPage.pageShowMode === 'view'"
 						type="text"
 						placeholder="Default..."
 						maxlength="48"
@@ -43,7 +44,7 @@
 						<div #content class="line" *ngFor="let item of currentPage.currentFileData; let i = index">
 							<input
 								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) === -1)
-									&&(currentPage.pageShowMode === 'edit')"
+									&& (currentPage.pageShowMode === 'edit')"
 								class="line-content"
 								(blur)="lineEventUpdateWithFocus($event, i, item.index)"
 								(keydown)="lineEventChangeWithClick($event, i, item.index)"
@@ -52,8 +53,10 @@
 							>
 							<div
 								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) === -1)
-									&&(currentPage.pageShowMode === 'edit')"
-									class=""
+									&& (currentPage.pageShowMode === 'edit')
+									&& (currentPage.currentFileData.length > 1)"
+								class="line-delete click"
+								(click)="updateFileRemoveLine(i, item.index)"
 							>
 								X
 							</div>
@@ -64,6 +67,9 @@
 							>
 								<app-loading-content-page [smallSize]="true"/>
 							</div>
+							<app-markdown-show
+								*ngIf="currentPage.pageShowMode === 'view'"
+							>{{ item.line }}</app-markdown-show>
 						</div>
 					</div>
 				</ng-container>

@@ -8,6 +8,7 @@ import JwtTokenService from '../jwt-token/JwtTokenService';
 import IResponseBoolModel, { ResponseBoolModel } from '../../models/response/IResponseBoolModel';
 import IResponseMapIntStringModel, { ResponseMapIntStringModel } from '../../models/response/IResponseMapIntStringModel';
 import { IResponseFileArrayModel, ResponseFileArrayModel } from '../../models/response/IResponseFileArrayModel';
+import IResponsePageModel, { ResponsePageModel } from '../../models/response/IResponsePageModel';
 
 @Injectable({providedIn: 'root'})
 export default class RequestPageService
@@ -25,11 +26,37 @@ export default class RequestPageService
 		this._urlService = `${this._dataProps.apiUrl}/${this._slugService}`;
 	}
 
+	public async createPage(title: string, password: string): Promise<IResponsePageModel>
+	{
+		try
+		{
+			const url = this._urlService;
+			const body = { title, password }
+			const response = firstValueFrom(
+				this._http.post<IResponsePageModel>(url, body).pipe(
+					catchError(error =>
+					{
+						this.statusCode = error.status;
+						throw Error;
+					})
+				)
+			);
+
+			return await response;
+		}
+		catch
+		{
+			let errorObjet: IResponsePageModel = new ResponsePageModel('Error', this.statusCode, null);
+			return errorObjet;
+		}
+	}
+
 	public async getIsPageExist(title: string, pin: string): Promise<IResponseBoolModel>
 	{
 		try
 		{
 			const url = `${this._urlService}${title}/${pin}/exist/`;
+			const body = {}
 			const response = firstValueFrom(
 				this._http.get<IResponseBoolModel>(url).pipe(
 					catchError(error =>
@@ -107,10 +134,6 @@ export default class RequestPageService
 		}
 	}
 
-	// public createPage(): ResponseObject | null
-	// {
-
-	// }
 
 	// public setPageTheme(): ResponseObject | null
 	// {
