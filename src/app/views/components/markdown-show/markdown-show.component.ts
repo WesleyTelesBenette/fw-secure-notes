@@ -12,7 +12,6 @@ import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, C
 export class MarkdownShowComponent implements OnInit, AfterViewInit
 {
 	@ViewChild('markdownLine') line!: ElementRef<HTMLDivElement>;
-	//@ContentChild('projectedContent', { static: true }) content!: ElementRef<HTMLDivElement>;
 	private lineTypes: string[] = ['---', '- ', '# ', '## ', '### '];
 	public lineFinalContent: string = '';
 	public ngContent: string = '';
@@ -97,7 +96,6 @@ export class MarkdownShowComponent implements OnInit, AfterViewInit
 			content = this.setLineStyles(content);
 
 			this.lineFinalContent = content;
-			console.log(this.lineFinalContent)
 		}
 	}
 }

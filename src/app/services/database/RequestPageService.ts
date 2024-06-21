@@ -6,9 +6,9 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import DatabaseProperties from './DatabaseProperties';
 import JwtTokenService from '../jwt-token/JwtTokenService';
 import IResponseBoolModel, { ResponseBoolModel } from '../../models/response/IResponseBoolModel';
-import IResponseMapIntStringModel, { ResponseMapIntStringModel } from '../../models/response/IResponseMapIntStringModel';
 import { IResponseFileArrayModel, ResponseFileArrayModel } from '../../models/response/IResponseFileArrayModel';
 import IResponsePageModel, { ResponsePageModel } from '../../models/response/IResponsePageModel';
+import IResponseNumberModel, { ResponseNumberModel } from '../../models/response/IResponseIntModel';
 
 @Injectable({providedIn: 'root'})
 export default class RequestPageService
@@ -26,31 +26,8 @@ export default class RequestPageService
 		this._urlService = `${this._dataProps.apiUrl}/${this._slugService}`;
 	}
 
-	public async createPage(title: string, password: string): Promise<IResponsePageModel>
-	{
-		try
-		{
-			const url = this._urlService;
-			const body = { title, password }
-			const response = firstValueFrom(
-				this._http.post<IResponsePageModel>(url, body).pipe(
-					catchError(error =>
-					{
-						this.statusCode = error.status;
-						throw Error;
-					})
-				)
-			);
 
-			return await response;
-		}
-		catch
-		{
-			let errorObjet: IResponsePageModel = new ResponsePageModel('Error', this.statusCode, null);
-			return errorObjet;
-		}
-	}
-
+	//Gets
 	public async getIsPageExist(title: string, pin: string): Promise<IResponseBoolModel>
 	{
 		try
@@ -76,15 +53,14 @@ export default class RequestPageService
 		}
 	}
 
-
-	public async getThemeList(): Promise<IResponseMapIntStringModel>
+	public async getPageTheme(title: string, pin: string): Promise<IResponseNumberModel>
 	{
 		try
 		{
-			const url = `${this._urlService}themes/`;
+			const url = `${this._urlService}${title}/${pin}/theme/`;
 			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
 			const response = firstValueFrom(
-				this._http.get<IResponseMapIntStringModel>(url, { headers: headers }).pipe(
+				this._http.get<IResponseNumberModel>(url, { headers: headers }).pipe(
 					catchError(error =>
 					{
 						this.statusCode = error.status;
@@ -97,17 +73,10 @@ export default class RequestPageService
 		}
 		catch
 		{
-			let errorObjet: IResponseMapIntStringModel = new ResponseMapIntStringModel('Error', this.statusCode, []);
+			let errorObjet: IResponseNumberModel = new ResponseNumberModel('Error', this.statusCode, null);
 			return errorObjet;
 		}
 	}
-
-
-
-	// public getPageTheme(): ResponseObject | null
-	// {
-
-	// }
 
 	public async getFileList(title: string, pin: string): Promise<IResponseFileArrayModel>
 	{
@@ -135,18 +104,110 @@ export default class RequestPageService
 	}
 
 
-	// public setPageTheme(): ResponseObject | null
-	// {
+	//Posts
+	public async createPage(title: string, password: string): Promise<IResponsePageModel>
+	{
+		try
+		{
+			const url = this._urlService;
+			const body = { title, password }
+			const response = firstValueFrom(
+				this._http.post<IResponsePageModel>(url, body).pipe(
+					catchError(error =>
+					{
+						this.statusCode = error.status;
+						throw Error;
+					})
+				)
+			);
 
-	// }
+			return await response;
+		}
+		catch
+		{
+			let errorObjet: IResponsePageModel = new ResponsePageModel('Error', this.statusCode, null);
+			return errorObjet;
+		}
+	}
 
-	// public setPagePassword(): ResponseObject | null
-	// {
 
-	// }
+	//Puts
+	public async setPageTheme(title: string, pin: string, theme: number): Promise<IResponseBoolModel>
+	{
+		try
+		{
+			const url = `${this._urlService}${title}/${pin}/theme/`;
+			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
+			const body = { theme };
+			const response = firstValueFrom(
+				this._http.put<IResponseBoolModel>(url, body, { headers: headers }).pipe(
+					catchError(error =>
+					{
+						this.statusCode = error.status;
+						throw Error;
+					})
+				)
+			);
 
-	// public deletePage(): ResponseObject | null
-	// {
+			return await response;
+		}
+		catch
+		{
+			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
+			return errorObjet;
+		}
+	}
 
-	// }
+	public async setPagePassword(title: string, pin: string, oldPassword: string, newPassword: string): Promise<IResponseBoolModel>
+	{
+		try
+		{
+			const url = `${this._urlService}${title}/${pin}/password/`;
+			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
+			const body = { oldPassword, newPassword };
+			const response = firstValueFrom(
+				this._http.put<IResponseBoolModel>(url, body, { headers: headers }).pipe(
+					catchError(error =>
+					{
+						this.statusCode = error.status;
+						throw Error;
+					})
+				)
+			);
+
+			return await response;
+		}
+		catch
+		{
+			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
+			return errorObjet;
+		}
+	}
+
+
+	//Deletes
+	public async deletePage(title: string, pin: string): Promise<IResponseBoolModel>
+	{
+		try
+		{
+			const url = `${this._urlService}${title}/${pin}/`;
+			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
+			const response = firstValueFrom(
+				this._http.delete<IResponseBoolModel>(url, { headers: headers }).pipe(
+					catchError(error =>
+					{
+						this.statusCode = error.status;
+						throw Error;
+					})
+				)
+			);
+
+			return await response;
+		}
+		catch
+		{
+			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
+			return errorObjet;
+		}
+	}
 }

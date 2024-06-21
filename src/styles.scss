@@ -16,17 +16,16 @@
 	--background-normal: #141414;
 	--background-light: #202020;
 	--background-hyper-light: #2c2c2c;
-	--icon-list: "🔹 ";
+	--icon-list: "🎯 ";
 }
 
 *
 {
-	scrollbar-color: var(--background-hyper-light) var(--background-dark);
-
 	font-family: "Nunito", Arial;
 	font-weight: 600;
 	color: var(--text-light);
 }
+
 
 
 .click
@@ -46,5 +45,138 @@
 	&:active { opacity: 0.4; }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html
+{
+	height: 100%;
+	scrollbar-color: var(--text-mark-3) var(--background-normal);
+
+	&.brown  { scrollbar-color: #886b37 #1d170b; }
+	&.blue   { scrollbar-color: #2448bd #040731; }
+	&.red    { scrollbar-color: #a11111 #3a0000; }
+	&.purple { scrollbar-color: #6531c5 #12052b; }
+	&.green  { scrollbar-color: #2aaa6a #0b2519; }
+	&.gold   { scrollbar-color: #b38711 #312303; }
+	&.coffe  { scrollbar-color: #443726 #0c0a07; }
+}
+
+body
+{
+	margin: 0;
+	height: 100%;
+	background-color: black;
+	overflow-x: hidden;
+
+	* { transition: background-color 1s, border-color 1s, color 1s; }
+
+	&.brown
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #c2994d;
+		--text-mark-2: #a07e40;
+		--text-mark-3: #886b37;
+		--background-dark: #130f07;
+		--background-normal: #1d170b;
+		--background-light: #312713;
+		--background-hyper-light: #504020;
+		--icon-list: "🥾 ";
+	}
+
+	&.blue
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #7797ff;
+		--text-mark-2: #4668da;
+		--text-mark-3: #2448bd;
+		--background-dark: #02021a;
+		--background-normal: #040731;
+		--background-light: #070c4b;
+		--background-hyper-light: #0a2069;
+		--icon-list: "🪼 ";
+	}
+
+	&.red
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #fa1c1c;
+		--text-mark-2: #c21616;
+		--text-mark-3: #a11111;
+		--background-dark: #200000;
+		--background-normal: #3a0000;
+		--background-light: #550000;
+		--background-hyper-light: #7c0000;
+		--icon-list: "🔥 ";
+	}
+
+	&.purple
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #9d69ff;
+		--text-mark-2: #7e47e4;
+		--text-mark-3: #6531c5;
+		--background-dark: #0a0318;
+		--background-normal: #12052b;
+		--background-light: #1f0a4b;
+		--background-hyper-light: #2c0e6b;
+		--icon-list: "☠️ ";
+	}
+
+	&.green
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #8bffc5;
+		--text-mark-2: #51d392;
+		--text-mark-3: #2aaa6a;
+		--background-dark: #071a11;
+		--background-normal: #0b2519;
+		--background-light: #164931;
+		--background-hyper-light: #257951;
+		--icon-list: "♻️ ";
+	}
+
+	&.gold
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #ffc82f;
+		--text-mark-2: #cf9e17;
+		--text-mark-3: #c5a13e;
+		--background-dark: #362300;
+		--background-normal: #443105;
+		--background-light: #6e4f07;
+		--background-hyper-light: #a1740a;
+		--icon-list: "✨ ";
+	}
+
+	&.coffe
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #775d3d;
+		--text-mark-2: #584630;
+		--text-mark-3: #443726;
+		--background-dark: #050403;
+		--background-normal: #0c0a07;
+		--background-light: #130f0b;
+		--background-hyper-light: #292118;
+		--icon-list: "🪶 ";
+	}
+
+	@keyframes initColor
+	{
+		0% { transform: scale(1.1) translateY(10px); }
+		50% { transform: scale(1) translateY(-5px); }
+		100% { transform: translateY(0px); }
+	}
+}

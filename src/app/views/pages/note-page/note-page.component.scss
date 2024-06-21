@@ -85,7 +85,7 @@
 			margin-top: 0px;
 			margin-bottom: 15px;
 			min-width: 100%;
-			border-top: 1px solid var(--text-dark);
+			border-top: 2px solid var(--text-mark-1);
 		}
 
 		.content
@@ -168,6 +168,11 @@
 {
 	justify-content: center;
 	align-items: center;
+}
+
+app-header-note-page
+{
+	margin-bottom: 55px;
 }
 
 form, app-loading-content-page, app-input-password, app-markdown-show

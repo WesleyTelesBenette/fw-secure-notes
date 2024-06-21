@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -20,7 +20,7 @@ import { LoadingContentPageComponent } from '../../components/loading-content-pa
 	templateUrl: './home-page.component.html',
 	styleUrl: './home-page.component.scss'
 })
-export class HomePageComponent
+export class HomePageComponent implements OnInit
 {
 	@ViewChild('inputTitleId') inputTitleId!: ElementRef<HTMLInputElement>;
 	@ViewChild('inputAddId') inputAddId!: ElementRef<HTMLInputElement>;
@@ -29,7 +29,20 @@ export class HomePageComponent
 	public inputAdd: string = '';
 	public infoModalOn: boolean = false;
 
-	public constructor(private _page: RequestPageService, private _router: Router) {}
+	public constructor
+	(
+		private _page: RequestPageService,
+		private _router: Router,
+		private _render: Renderer2
+	) {}
+
+	public ngOnInit()
+	{
+		const elementBody = document.querySelector('body') as HTMLBodyElement;
+
+		while (elementBody.classList.length > 0)
+			this._render.removeClass(elementBody, elementBody.classList[0]);
+	}
 
 	public toggleInfoModalOn(): void
 		{ this.infoModalOn = !this.infoModalOn; }

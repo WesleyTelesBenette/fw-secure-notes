@@ -26,6 +26,7 @@ export default class RequestFileService
 		this._urlService = `${this._dataProps.apiUrl}/${this._slugService}`;
 	}
 
+	//Gets
 	public async getFileId(title: string, pin: string, id: number): Promise<IResponseFileModel>
 	{
 		try
@@ -49,8 +50,10 @@ export default class RequestFileService
 			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', []));
 			return errorObjet;
 		}
-	}
+	} //####################
 
+
+	//Posts
 	public async createFile(title: string, pin: string, titlePage: string): Promise<IResponseFileModel>
 	{
 		try
@@ -77,6 +80,8 @@ export default class RequestFileService
 		}
 	}
 
+
+	//Puts
 	public async updateFileTitle(title: string, pin: string, id: number, newTitle: string): Promise<IResponseBoolModel>
 	{
 		try
@@ -127,7 +132,7 @@ export default class RequestFileService
 			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
 			return errorObjet;
 		}
-	}
+	} //####################
 
 	public async updateFileLineContent(title: string, pin: string, id: number, index: number, content: string): Promise<IResponseBoolModel>
 	{
@@ -153,7 +158,7 @@ export default class RequestFileService
 			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
 			return errorObjet;
 		}
-	}
+	} //####################
 
 	public async updateFileRemoveLine(title: string, pin: string, id: number, index: number): Promise<IResponseBoolModel>
 	{
@@ -179,9 +184,10 @@ export default class RequestFileService
 			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
 			return errorObjet;
 		}
-	}
+	} //####################
 
 
+	//Deletes
 	public async deleteFileIndex(title: string, pin: string, id: number): Promise<IResponseBoolModel>
 	{
 		try
@@ -205,5 +211,5 @@ export default class RequestFileService
 			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
 			return errorObjet;
 		}
-	}
+	} //####################
 }

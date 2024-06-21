@@ -41,17 +41,19 @@
 					/>
 				</div>
 			</div>
-			<div class="tool click" (click)="toggleThemePageOn()" title="Mudar tema de cores">
-				<img class="image" src="./assets/theme.svg"/>
+
+			<div class="tool click" (click)="toggleInfoPageOn()" title="Informaçãoes sobre a Página">
+				<img class="image" src="./assets/info-page.svg"/>
 			</div>
 
 			<div class="tool click" (click)="copyLink()" title="Copiar minha URL">
 				<img class="image" src="./assets/copy.svg"/>
 			</div>
 
-			<div class="tool click" (click)="toggleInfoPageOn()" title="Informaçãoes sobre a Página">
-				<img class="image" src="./assets/info-page.svg"/>
+			<div class="tool click" (click)="toggleConfigPageOn()" title="Configurações">
+				<img class="image" src="./assets/config.svg"/>
 			</div>
+
 			<div class="tool click" (click)="logOut()" title="Sair">
 				<img class="image" src="./assets/logout.svg"/>
 			</div>
@@ -87,15 +89,69 @@
 </app-info-page>
 
 <app-info-page
-	[title]="'Temas do Sistema'"
-	[show]="themePageOn"
-	[buttonName]="'Ok'"
-	[smallSize]="true"
-	[closeEnter]="true"
-	[closeSpace]="true"
-	(buttonClick)="toggleThemePageOn()"
+	[title]="'Configurações'"
+	[show]="configPageOn"
+	[buttonName]="'Fechar'"
+	(buttonClick)="toggleConfigPageOn()"
 >
+	<h2 class="title">Informações</h2>
+	<hr class="hr"/>
+	<div class="columns">
+		<p class="text">Nome: <span class="mark">{{ currentPage.titleSlug }}</span>.</p>
+		<p class="text">PIN: <span class="mark">{{ currentPage.pinSlug }}</span>.</p>
+		<p class="text">Arquivos: <span class="mark">{{ currentPage.fileList.length }}</span>.</p>
+	</div>
 
+	<div class="space"></div>
+
+	<h2 class="title">Temas</h2>
+	<hr class="hr"/>
+	<div *ngIf="!currentPage.pageUpdateTheme"  class="colors">
+		<div
+			*ngFor="let color of themeColors; let i = index"
+			[ngClass]="{'box-color click': true, 'box-select': i === currentPage.currentTheme}"
+			[style.background-color]="color[1]"
+			(click)="setAndSaveTheme(i)"></div>
+	</div>
+	<div *ngIf="currentPage.pageUpdateTheme" class="loading">
+		<app-loading-content-page/>
+	</div>
+
+	<div class="space"></div>
+
+	<h2 class="title">Trocar Senha</h2>
+	<hr class="hr"/>
+	<div *ngIf="!currentPage.pageUpdatePassword">
+		<p class="text">Senha Atual:</p>
+		<input
+			class="input"
+			type="text"
+			placeholder="Digite sua senha atual..."
+			[(ngModel)]="oldPasswordInput"
+		/>
+		<p class="text">Nova Senha:</p>
+		<input
+			class="input"
+			type="text"
+			placeholder="Digite sua nova senha..."
+			[(ngModel)]="newPasswordInput"
+		/>
+		<div class="center">
+			<div class="button click" (click)="updatePassword()">Atualizar Senha</div>
+		</div>
+	</div>
+	<div *ngIf="currentPage.pageUpdatePassword" class="loading">
+		<app-loading-content-page/>
+	</div>
+
+	<div class="space"></div>
+
+	<h2 class="title">Conta</h2>
+	<hr class="hr"/>
+	<div class="center">
+		<div class="button click" (click)="logOut()">Sair da Página</div>
+		<div class="button click" (click)="toggleDeletePageOn()">Deletar Página</div>
+	</div>
 </app-info-page>
 
 <app-info-page
@@ -111,13 +167,34 @@
 />
 
 <app-info-page
+	[title]="'Senha atualizada com Sucesso!'"
+	[show]="updatePasswordOn"
+	[hasContent]="false"
+	[buttonName]="'Ok'"
+	[closeEnter]="true"
+	[closeSpace]="true"
+	[closeClick]="true"
+	(buttonClick)="toggleUpdatePasswordOn()"
+/>
+
+<app-info-page
 	[title]="'Ajuda'"
 	[show]="infoPageOn"
-	[largeSize]="true"
 	[closeEnter]="true"
 	[closeSpace]="true"
 	[closeClick]="true"
 	(buttonClick)="toggleInfoPageOn()"
 >
-	Content
+	Manual do Sistema...
+</app-info-page>
+
+<app-info-page
+	[title]="'Quer mesmo DELETAR sua Página?'"
+	[show]="deletePageOn"
+	[hasButton]="false"
+>
+	<div class="center">
+		<div class="button click" (click)="deletePage()">Sim</div>
+		<div class="button click" (click)="toggleDeletePageOn()">Não</div>
+	</div>
 </app-info-page>

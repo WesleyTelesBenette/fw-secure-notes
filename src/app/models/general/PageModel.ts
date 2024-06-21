@@ -11,7 +11,10 @@ export default class PageModel
 	public pinSlug: string = '';
 
 	public pageHasPassword: boolean = true;
+	public currentTheme: number = 0;
 
+	public pageUpdateTheme: boolean = false;
+	public pageUpdatePassword: boolean = false;
 	public fileUpdateTitleOn: boolean = false;
 	public fileUpdateContentOn: boolean = true;
 
