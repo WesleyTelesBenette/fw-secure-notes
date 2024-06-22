@@ -1,17 +1,13 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import FooterComponent from '../../components/footer/footer.component';
 import ModalInfoComponent from '../../components/modal-info/modal-info.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import RequestPageService from '../../../services/database/RequestPageService';
 import { LoadingContentPageComponent } from '../../components/loading-content-page/loading-content-page.component';
 
-/** Componente da página principal da aplicação.
- *
- * Usado como a pagina padrão da rota raiz do site.
- */
 @Component
 ({
 	selector: 'app-home-page',
@@ -20,7 +16,7 @@ import { LoadingContentPageComponent } from '../../components/loading-content-pa
 	templateUrl: './home-page.component.html',
 	styleUrl: './home-page.component.scss'
 })
-export class HomePageComponent implements OnInit
+export class HomePageComponent implements AfterViewInit
 {
 	@ViewChild('inputTitleId') inputTitleId!: ElementRef<HTMLInputElement>;
 	@ViewChild('inputAddId') inputAddId!: ElementRef<HTMLInputElement>;
@@ -31,17 +27,24 @@ export class HomePageComponent implements OnInit
 
 	public constructor
 	(
+		@Inject(PLATFORM_ID) private platformId: Object,
 		private _page: RequestPageService,
 		private _router: Router,
 		private _render: Renderer2
 	) {}
 
-	public ngOnInit()
+	public ngAfterViewInit()
 	{
-		const elementBody = document.querySelector('body') as HTMLBodyElement;
+		if (isPlatformBrowser(this.platformId))
+		{
+			const elementBody = document.querySelector('body');
 
-		while (elementBody.classList.length > 0)
-			this._render.removeClass(elementBody, elementBody.classList[0]);
+			if (elementBody)
+			{
+				while (elementBody.classList.length > 0)
+					this._render.removeClass(elementBody, elementBody.classList[0]);
+			}
+		}
 	}
 
 	public toggleInfoModalOn(): void

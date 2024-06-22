@@ -1,11 +1,11 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild, input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 import PageModel from '../../../models/general/PageModel';
-import RequestPageService from '../../../services/database/RequestPageService';
 import RequestAuthorizationService from '../../../services/database/RequestAuthorizationService';
 import JwtTokenService from '../../../services/jwt-token/JwtTokenService';
 
@@ -31,7 +31,7 @@ export type TypeErrorPage =
 	standalone: true,
 	imports:
 	[
-		CommonModule, FormsModule,
+		CommonModule, FormsModule, TextFieldModule,
 		FooterComponent, ModalInfoComponent,
 		InputPasswordComponent, HeaderNotePageComponent,
 		LoadingContentPageComponent, MarkdownShowComponent
@@ -46,11 +46,14 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 	public currentPage!: PageModel;
 
 	@ViewChild('contentFile') content!: ElementRef<HTMLDivElement>;
-	@ViewChild('titleInput') titleInput!: ElementRef<HTMLInputElement>;
+	@ViewChild('titleInputContainer') titleInputContainer!: ElementRef<HTMLDivElement>;
+	@ViewChild('titleInput') titleInput!: ElementRef<HTMLTextAreaElement>;
 	public titleInputOn: boolean = false;
 
 	public pagePasswordOn: boolean = false;
 	public inputPasswordModal: string = '';
+	private archivedUpdateTitle: [boolean, string] = [false, ''];
+	private archivedUpdateContent: [boolean, string] = [false, ''];
 
 	public pageErrorOn: boolean = false;
 	public pageErrorTitle: string = '';
@@ -59,10 +62,10 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 	constructor(
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
-		private _page: RequestPageService,
 		private _file: RequestFileService,
 		private _authorizarion: RequestAuthorizationService,
-		private _token: JwtTokenService
+		private _token: JwtTokenService,
+		private _render: Renderer2
 	) { }
 
 
@@ -164,6 +167,21 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		}
 	}
 
+	public callInputPasswordError()
+	{
+		const elementBody = document.querySelector('body') as HTMLBodyElement;
+
+		if (elementBody)
+		{
+			while (elementBody.classList.length > 0)
+				this._render.removeClass(elementBody, elementBody.classList[0]);
+		}
+
+		this.currentPage.pageShowMode = 'view';
+
+		this.callInputPassword();
+	}
+
 	private callInputPassword()
 	{
 		this.currentPage.pageOn = false;
@@ -183,8 +201,16 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 			if ((response.statusCode == 201) && (response.content != null))
 			{
 				this._token.setToken(response.content);
-				this.initPage();
-				return;
+				this.inputPasswordModal = '';
+
+				const updateArchivedTitle = (this.archivedUpdateTitle[0]) ? (this.updateFileTitle(this.archivedUpdateTitle[1])) : true;
+				//const updateArchivedContent = (this.archivedUpdateContent[0]) ? (this.updateFileLineContent(this.archivedUpdateContent[1])) : true;
+
+				if (updateArchivedTitle)
+				{
+					this.initPage();
+					return;
+				}
 			}
 
 			if (response.statusCode == 404)
@@ -224,9 +250,10 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 	//##############################
 	// * FILES *
 	//##############################
-	public async updateFileTitle()
+	public async updateFileTitle(title: string | any = undefined): Promise<boolean | any>
 	{
-		const inputValue = this.titleInput.nativeElement.value;
+		this.currentPage.fileUpdateTitleOn = true;
+		const inputValue = (title) ? title : this.titleInput.nativeElement.value;
 		const oldFileIndex = this.currentPage.fileList.indexOf
 		(
 			this.currentPage.fileList.find(f => f.id == this.currentPage.currentFile.id)
@@ -234,9 +261,11 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		);
 
 		if ((oldFileIndex === -1) || (this.currentPage.fileList[oldFileIndex].title == inputValue))
+		{
+			await new Promise(resolve => setTimeout(resolve, 1));
+			this.currentPage.fileUpdateTitleOn = false;
 			return;
-
-		this.currentPage.fileUpdateTitleOn = true;
+		}
 
 		try
 		{
@@ -260,6 +289,14 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 				});
 				this.currentPage.currentFile.title = inputValue;
 				this.currentPage.fileUpdateTitleOn = false;
+				return true;
+			}
+
+			if (response.statusCode === 401)
+			{
+				this.archivedUpdateTitle = [true, inputValue];
+				this.callInputPasswordError();
+				this.currentPage.fileUpdateTitleOn = false;
 				return;
 			}
 
@@ -268,6 +305,7 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		catch
 		{
 			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
+			return false;
 		}
 	}
 
@@ -287,6 +325,7 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		{
 			if (event.key === 'Enter')
 			{
+				inputTitle.value = inputTitle.value.slice(0, inputTitle.value.length-1);
 				inputTitle.blur();
 				inputTitle.removeEventListener('keyup', clickTitleEvent);
 			}
@@ -303,7 +342,7 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 			const response = await this._file
 				.getFileId(this.currentPage.titleSlug, this.currentPage.pinSlug, this.currentPage.currentFile.id);
 
-			if (response.statusCode == 200)
+			if (response.statusCode === 200)
 			{
 				const data = response.content;
 				let fileData: MapIntString[] = [];
@@ -318,6 +357,13 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 
 				this.currentPage.fileUpdateContentOn = false;
 				this.updatePage();
+				return;
+			}
+
+			if (response.statusCode === 401)
+			{
+				this.callInputPasswordError();
+				this.currentPage.fileUpdateContentOn = false;
 				return;
 			}
 

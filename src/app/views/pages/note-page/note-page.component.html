@@ -11,6 +11,7 @@
 		<div class="top">
 			<app-header-note-page
 				[currentPage]="currentPage"
+				(callInputPassword)="callInputPasswordError()"
 				(throwError)="errorPage($event)"
 				(loadFile)="loadFileData()"
 			/>
@@ -19,24 +20,27 @@
 					<app-loading-content-page showText="Carregando Arquivo..."/>
 				</ng-container>
 
-				<ng-container *ngIf="!currentPage.fileUpdateContentOn">
+				<div #titleInputContainer *ngIf="!currentPage.fileUpdateContentOn">
 					<app-loading-content-page
 						class="title"
 						*ngIf="currentPage.fileUpdateTitleOn"
 					/>
-					<input
+					<textarea
 						*ngIf="!currentPage.fileUpdateTitleOn"
 						#titleInput
-						[ngClass]="['title', (currentPage.pageShowMode === 'view') ? 'title-no-edit' : '']"
-						[disabled]="currentPage.pageShowMode === 'view'"
 						type="text"
 						placeholder="Default..."
 						maxlength="48"
+						cdkTextareaAutosize
+						cdkAutosizeMinRows="1"
+						[ngClass]="['title', (currentPage.pageShowMode === 'view') ? 'title-no-edit' : '']"
+						[disabled]="currentPage.pageShowMode === 'view'"
 						[value]="((currentPage.fileList.length > 0) && (currentPage.currentFile != null))
 							? currentPage.currentFile.title
 							: ''"
-						(focus)="setTitleEvents()"
-					/>
+						(focus)="[setTitleEvents()]"
+					>
+					</textarea>
 
 					<hr class="hr"/>
 
@@ -72,7 +76,7 @@
 							>{{ item.line }}</app-markdown-show>
 						</div>
 					</div>
-				</ng-container>
+				</div>
 			</main>
 		</div>
 		<app-footer/>

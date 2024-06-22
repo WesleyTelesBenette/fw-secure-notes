@@ -37,46 +37,62 @@
 
 		.title
 		{
-			height: 100px;
-			background-color: transparent;
 			border: none;
-			outline-style: none;
 			padding-left: 20px;
+
+			resize: none;
+			overflow: hidden;
+			outline-style: none;
+			background-color: transparent;
+			max-width: 100%;
+			min-width: 100%;
+			min-height: 2em;
+
 			transition: padding-bottom 0.2s ease, font-size 0.1s ease;
 			animation: initTitleOn 0.2s ease-in-out;
 
 			color: var(--text-light);
 			font-family: "Zilla Slab";
-			font-size: 3em;
+			font-size: 2em;
+			line-height: 2em;
+			font-weight: 400;
 
 			&:focus
 			{
 				padding-bottom: 5px;
 
-				font-size: 3.05em;
 				color: var(--text-dark);
+				animation: titleFocus 1s ease-in-out infinite;
 			}
+		}
+
+		@keyframes titleFocus
+		{
+			0% {transform: translateY(-1px); }
+			50% {transform: translateY(1px); }
+			100% {transform: translateY(-1px); }
 		}
 
 		.title-no-edit
 		{
-			transition: none;
 			font-family: "Cinzel Decorative";
-			font-size: 2.5em;
+			font-weight: 600;
+
+			transition: none;
 			animation: initTitleOff 0.2s ease-in-out;
 		}
 
 		@keyframes initTitleOn
 		{
-			0%   { transform: scaleY(0.5); }
-			90%  { transform: scaleY(1.2); }
+			0%   { transform: scaleY(0.6); }
+			70%  { transform: scaleY(1.2); }
 			100% { transform: scaleY(1);   }
 		}
 
 		@keyframes initTitleOff
 		{
-			0%   { transform: scaleY(0.5); }
-			90%  { transform: scaleY(1.2); }
+			0%   { transform: scaleY(0.6); }
+			70%  { transform: scaleY(1.2); }
 			100% { transform: scaleY(1);   }
 		}
 
@@ -157,6 +173,25 @@
 	}
 }
 
+@media only screen and (max-width: 900px)
+{
+	.container { main { .title
+	{
+		font-size: 1.7em;
+		line-height: 1.7em;
+	}}}
+}
+
+@media only screen and (max-width: 650px)
+{
+	.container { main { .title
+	{
+		font-size: 1.5em;
+		line-height: 1.5em;
+	}}}
+}
+
+
 .loading-background
 {
 	background-color: var(--background-normal);
@@ -172,7 +207,15 @@
 
 app-header-note-page
 {
-	margin-bottom: 55px;
+	margin-bottom: 77px;
+}
+
+@media only screen and (max-width: 1101px)
+{
+	app-header-note-page
+	{
+		margin-bottom: 125px;
+	}
 }
 
 form, app-loading-content-page, app-input-password, app-markdown-show

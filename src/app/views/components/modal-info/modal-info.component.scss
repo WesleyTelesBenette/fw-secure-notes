@@ -4,6 +4,15 @@
 	background-color: var(--background-normal);
 	border: 2px solid var(--background-light);
 
+	animation: initModal 0.3s ease-in-out;
+
+	@keyframes initModal
+	{
+		0% { transform: scaleY(0.4); }
+		90% { transform: scaleY(1.05); }
+		100% { transform: scaleY(1); }
+	}
+
 	.header
 	{
 		display: flex;
@@ -45,6 +54,8 @@
 			font-weight: 800;
 			font-style: italic;
 		}
+
+
 	}
 
 	.footer

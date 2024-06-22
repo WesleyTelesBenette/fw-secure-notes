@@ -24,6 +24,7 @@ export default class ModalInfoComponent implements AfterViewInit
 	@Input() closeEnter: boolean = false;
 	@Input() closeSpace: boolean = false;
 	@Input() closeClick: boolean = false;
+	public clickAction: boolean = false;
 
 	@Input() title: string = '';
 	@Input() buttonName: string = 'Fechar';
@@ -56,9 +57,11 @@ export default class ModalInfoComponent implements AfterViewInit
 		modal.addEventListener('animationend',() =>
 		{
 			if (!this._show)
+			{
+				this.clickAction = false;
 				modal.classList.add('hiden-modal');
-			else
-				modal.classList.remove('hiden-modal');
+			}
+			else modal.classList.remove('hiden-modal');
 		});
 
 		if (this.closeEnter)
@@ -97,6 +100,10 @@ export default class ModalInfoComponent implements AfterViewInit
 
 	public clickOn()
 	{
-		this.buttonClick.emit();
+		if (this.clickAction === false)
+		{
+			this.clickAction = true;
+			this.buttonClick.emit();
+		}
 	}
 }

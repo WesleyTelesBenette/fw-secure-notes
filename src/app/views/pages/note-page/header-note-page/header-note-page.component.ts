@@ -23,6 +23,7 @@ export default class HeaderNotePageComponent implements OnInit
 	@Input() currentPage!: PageModel;
 	@Output() throwError: EventEmitter<any> = new EventEmitter<any>();
 	@Output() loadFile: EventEmitter<any> = new EventEmitter<any>();
+	@Output() callInputPassword: EventEmitter<any> = new EventEmitter<any>();
 
 	public themeColors: [string,string][] =
 	[
@@ -85,7 +86,19 @@ export default class HeaderNotePageComponent implements OnInit
 			const files = await this._page
 				.getFileList(this.currentPage.titleSlug, this.currentPage.pinSlug);
 
-			this.currentPage.fileList = files.content ?? [];
+			if (files.statusCode === 200)
+			{
+				this.currentPage.fileList = files.content ?? [];
+				return;
+			}
+
+			if (files.statusCode === 401)
+			{
+				this.callInputPassword.emit();
+				return;
+			}
+
+			throw Error;
 		}
 		catch { this.throwError.emit(); }
 	}
@@ -105,7 +118,16 @@ export default class HeaderNotePageComponent implements OnInit
 				this.currentPage.fileList[this.currentPage.fileList.length-1] = response.content;
 				this.selectFile(response.content.id);
 				this.getFileList();
+				return;
 			}
+
+			if (response.statusCode === 401)
+			{
+				this.callInputPassword.emit();
+				return;
+			}
+
+			throw Error;
 		}
 		catch { this.throwError.emit(); }
 	}
@@ -125,7 +147,19 @@ export default class HeaderNotePageComponent implements OnInit
 				this.selectFile(newFileSelectId);
 			}
 
-			await this._file.deleteFileIndex(this.currentPage.titleSlug, this.currentPage.pinSlug, id);
+			const response = await this._file
+				.deleteFileIndex(this.currentPage.titleSlug, this.currentPage.pinSlug, id);
+
+			if (response.statusCode === 200)
+				return;
+
+			if (response.statusCode === 401)
+			{
+				this.callInputPassword.emit();
+				return;
+			}
+
+			throw Error;
 		}
 		catch { this.throwError.emit(); }
 	}
@@ -148,6 +182,12 @@ export default class HeaderNotePageComponent implements OnInit
 				return response.content ?? 0;
 			}
 
+			if (response.statusCode === 401)
+			{
+				this.callInputPassword.emit();
+				return 0;
+			}
+
 			return 0;
 		}
 		catch { this.throwError.emit(); return 0; }
@@ -167,6 +207,13 @@ export default class HeaderNotePageComponent implements OnInit
 
 				if (response.statusCode === 200)
 				{
+					this.currentPage.pageUpdateTheme = false;
+					return;
+				}
+
+				if (response.statusCode === 401)
+				{
+					this.callInputPassword.emit();
 					this.currentPage.pageUpdateTheme = false;
 					return;
 				}
@@ -220,6 +267,13 @@ export default class HeaderNotePageComponent implements OnInit
 				return;
 			}
 
+			if (response.statusCode === 401)
+			{
+				this.callInputPassword.emit();
+				this.currentPage.pageUpdatePassword = false;
+				return;
+			}
+
 			throw Error;
 		}
 		catch { this.throwError.emit(); }
@@ -237,7 +291,6 @@ export default class HeaderNotePageComponent implements OnInit
 
 		try
 		{
-			this.currentPage.pageUpdatePassword = true;
 			const response = await this._page.deletePage(this.currentPage.titleSlug, this.currentPage.pinSlug);
 
 			if (response.statusCode === 200)
@@ -246,13 +299,25 @@ export default class HeaderNotePageComponent implements OnInit
 				return;
 			}
 
+			if (response.statusCode === 401)
+			{
+				this.currentPage.pageOn = true;
+				this.callInputPassword.emit();
+				return;
+			}
+
 			throw Error;
 		}
 		catch { this.throwError.emit(); }
 	}
 
-	public togglePageShowMode(mode: 'edit' | 'view')
-		{ this.currentPage.pageShowMode = mode; }
+	public async togglePageShowMode(mode: 'edit' | 'view')
+	{
+		this.currentPage.fileUpdateTitleOn = true;
+		this.currentPage.pageShowMode = mode;
+		await new Promise(resolve => setTimeout(resolve, 1));
+		this.currentPage.fileUpdateTitleOn = false;
+	}
 
 	public toggleFilesPageOn()
 		{ this.filesPageOn = !this.filesPageOn; }
