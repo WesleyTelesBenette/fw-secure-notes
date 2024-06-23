@@ -47,10 +47,10 @@ export default class RequestFileService
 		}
 		catch
 		{
-			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', []));
+			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', ''));
 			return errorObjet;
 		}
-	} //####################
+	}
 
 
 	//Posts
@@ -75,7 +75,7 @@ export default class RequestFileService
 		}
 		catch
 		{
-			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', []));
+			let errorObjet: IResponseFileModel = new ResponseFileModel('Error', this.statusCode, new FileModel(-1, '', ''));
 			return errorObjet;
 		}
 	}
@@ -108,13 +108,13 @@ export default class RequestFileService
 		}
 	}
 
-	public async updateFileAddLine(title: string, pin: string, id: number, index: number): Promise<IResponseBoolModel>
+	public async updateFileContent(title: string, pin: string, id: number, content: string): Promise<IResponseBoolModel>
 	{
 		try
 		{
-			const url = `${this._urlService}${title}/${pin}/${id}/add/content/`;
+			const url = `${this._urlService}${title}/${pin}/${id}/content/`;
 			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
-			const body = new UpdateFileContentModel(index, null)
+			const body = new UpdateFileContentModel(content)
 			const response = firstValueFrom(
 				this._http.put<IResponseBoolModel>(url, body, { headers: headers }).pipe(
 					catchError(error =>
@@ -132,60 +132,7 @@ export default class RequestFileService
 			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
 			return errorObjet;
 		}
-	} //####################
-
-	public async updateFileLineContent(title: string, pin: string, id: number, index: number, content: string): Promise<IResponseBoolModel>
-	{
-		try
-		{
-			const url = `${this._urlService}${title}/${pin}/${id}/update/content/`;
-			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
-			const body = new UpdateFileContentModel(index, content)
-			const response = firstValueFrom(
-				this._http.put<IResponseBoolModel>(url, body, { headers: headers }).pipe(
-					catchError(error =>
-					{
-						this.statusCode = error.status;
-						throw Error;
-					})
-				)
-			);
-
-			return await response;
-		}
-		catch
-		{
-			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
-			return errorObjet;
-		}
-	} //####################
-
-	public async updateFileRemoveLine(title: string, pin: string, id: number, index: number): Promise<IResponseBoolModel>
-	{
-		try
-		{
-			const url = `${this._urlService}${title}/${pin}/${id}/remove/content/`;
-			const headers = new HttpHeaders().set('Authorization', this._token.getToken());
-			const body = new UpdateFileContentModel(index, null)
-			const response = firstValueFrom(
-				this._http.put<IResponseBoolModel>(url, body, { headers: headers }).pipe(
-					catchError(error =>
-					{
-						this.statusCode = error.status;
-						throw Error;
-					})
-				)
-			);
-
-			return await response;
-		}
-		catch
-		{
-			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
-			return errorObjet;
-		}
-	} //####################
-
+	}
 
 	//Deletes
 	public async deleteFileIndex(title: string, pin: string, id: number): Promise<IResponseBoolModel>
@@ -211,5 +158,5 @@ export default class RequestFileService
 			let errorObjet: IResponseBoolModel = new ResponseBoolModel('Error', this.statusCode, null);
 			return errorObjet;
 		}
-	} //####################
+	}
 }

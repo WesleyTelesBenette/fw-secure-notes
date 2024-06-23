@@ -44,36 +44,27 @@
 
 					<hr class="hr"/>
 
-					<div #contentFile class="content">
-						<div #content class="line" *ngFor="let item of currentPage.currentFileData; let i = index">
-							<input
-								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) === -1)
-									&& (currentPage.pageShowMode === 'edit')"
-								class="line-content"
-								(blur)="lineEventUpdateWithFocus($event, i, item.index)"
-								(keydown)="lineEventChangeWithClick($event, i, item.index)"
-								[value]="item.line"
+					<div class="content">
+						<div class="input">
+							<textarea
+								*ngIf="(!currentPage.fileUpdateContentInputOn) && (currentPage.pageShowMode === 'edit')"
+								#contentFile
+								cdkTextareaAutosize
+								cdkAutosizeMinRows="1"
+								class="input-content"
+								[value]="currentPage.currentFileData"
 								placeholder="Digite suas anotações..."
-							>
+								(blur)="callUpdateFileContent()"
+							></textarea>
 							<div
-								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) === -1)
-									&& (currentPage.pageShowMode === 'edit')
-									&& (currentPage.currentFileData.length > 1)"
-								class="line-delete click"
-								(click)="updateFileRemoveLine(i, item.index)"
-							>
-								X
-							</div>
-							<div
-								*ngIf="(currentPage.currentUpdateFileLines.indexOf(item.index) !== -1)
-									&&(currentPage.pageShowMode === 'edit')"
-								class="line-content line-content-loading"
+								*ngIf="(currentPage.fileUpdateContentInputOn) && (currentPage.pageShowMode === 'edit')"
+								class="input-content input-content-loading"
 							>
 								<app-loading-content-page [smallSize]="true"/>
 							</div>
 							<app-markdown-show
 								*ngIf="currentPage.pageShowMode === 'view'"
-							>{{ item.line }}</app-markdown-show>
+							>{{ currentPage.currentFileData }}</app-markdown-show>
 						</div>
 					</div>
 				</div>

@@ -33,6 +33,8 @@ export default class HeaderNotePageComponent implements OnInit
 		['purple', '#2c0e6b'],
 		['green', '#257951'],
 		['gold', '#c08600'],
+		['white', '#ebebeb'],
+		['pink', '#d41b78'],
 		['brown', '#504020'],
 		['coffe', '#292118'],
 	];

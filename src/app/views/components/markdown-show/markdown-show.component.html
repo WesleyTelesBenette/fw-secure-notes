@@ -3,9 +3,12 @@
 
 .markdown-content
 {
+	display: flex;
+	flex-direction: column;
 	margin-bottom: 0.2em;
 	padding-left: 2%;
 	padding-right: 2%;
+	gap: 10px;
 
 	width: 100%;
 	min-height: 100%;
@@ -17,31 +20,40 @@
 	font-weight: 400;
 	animation: initComponent 0.3s ease-in-out;
 
-	b { font-weight: 600; font-family: "Josefin Sans"; }
-	i { font-style: italic; font-weight: 200; font-family: "Josefin Sans"; }
-	s { text-decoration: line-through; font-weight: 200; font-family: "Josefin Sans"; }
-	mark { color: var(--text-mark-1); background-color: transparent; }
+	*
+	{
+		text-wrap: wrap;
+		word-wrap: break-word;
+		word-break: break-all;
+		overflow-wrap: break-word;
+		font-family: "Josefin Sans";
 
-	hr { margin-bottom: 1em; margin-top: 1em; min-width: 80%; height: 2px; background-color: var(--background-hyper-light); border: none; opacity: 1; }
-	li { list-style: var(--icon-list); accent-color: red; font-weight: 400; font-family: "Josefin Sans"; font-size: 1.1em; }
+		hr { margin: 0px; margin-bottom: 20px; min-width: 80%; height: 2px; background-color: var(--background-hyper-light); border: none; opacity: 1; }
+		li { list-style: var(--icon-list); accent-color: red; font-weight: 400; font-size: 1.1em; }
+		p  { margin: 0px; }
+		h2 { margin-top: 0.8em; margin-bottom: 0.3em; color: var(--text-mark-1); font-size: 1.7em; font-family: "Cinzel Decorative"; font-weight: 700; }
+		h3 { margin-top: 0.8em; margin-bottom: 0.3em; color: var(--text-mark-2); font-family: "Cinzel Decorative"; font-size: 1.3em; font-weight: 700; }
+		h4 { margin-top: 0.8em; margin-bottom: 0.3em; color: var(--text-mark-3); font-family: "Cinzel Decorative"; font-size: 1.1em; font-weight: 700; }
 
-	h2 { margin-top: 0.8em; margin-bottom: 0.3em; color: var(--text-mark-1); font-size: 1.7em; font-family: "Cinzel Decorative"; font-weight: 700; }
-	h3 { margin-top: 0.8em; margin-bottom: 0.3em; color: var(--text-mark-2); font-family: "Cinzel Decorative"; font-size: 1.3em; font-weight: 700; }
-	h4 { margin-top: 0.8em; margin-bottom: 0.3em; color: var(--text-mark-3); font-family: "Cinzel Decorative"; font-size: 1.1em; font-weight: 700; }
 
-
+		b { font-weight: 900; color: var(--text-mark-1); }
+		i { font-weight: 200; font-style: italic; }
+		s { text-decoration: var(--text-dark) double line-through; font-weight: 400; color: var(--text-hyper-dark); }
+		u { }
+		mark { color: var(--text-mark-1); background-color: transparent; }
+	}
 }
 
 @keyframes initComponent
 {
- 	0% { transform: scaleX(0.5); }
-	90% { transform: scaleX(1.01); }
-	100% { transform: scaleX(1); }
+ 	0%   { transform: scaleX(0.5);  }
+	90%  { transform: scaleX(1.01); }
+	100% { transform: scaleX(1);    }
 }
 
 </style>
 
 <div #markdownLine [ngClass]="'markdown-content'">
-	<ng-content *ngIf="lineFinalContent === ''"></ng-content>
-	<div *ngIf="lineFinalContent !== ''" [ngClass]="'markdown-content'" [innerHTML]="lineFinalContent"></div>
+	<ng-content *ngIf="finalContent === ''"></ng-content>
+	<div *ngIf="finalContent !== ''" [ngClass]="'markdown-content'" [innerHTML]="finalContent"></div>
 </div>

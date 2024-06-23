@@ -1,5 +1,4 @@
 import { FileModel, IFileModel } from "./IFileModel";
-import MapIntString from "./MapIntString";
 
 export default class PageModel
 {
@@ -17,14 +16,12 @@ export default class PageModel
 	public pageUpdatePassword: boolean = false;
 	public fileUpdateTitleOn: boolean = false;
 	public fileUpdateContentOn: boolean = true;
+	public fileUpdateContentInputOn: boolean = false;
 
 	public fileList: IFileModel[] = [];
-	public currentFile: IFileModel = new FileModel(0, '', []);
-	public currentFileIndex: number = 0;
-	public currentFileData: MapIntString[] = [];
-	public currentFileDataCopy: MapIntString[] = [];
-	public currentUpdateFileLines: number[] = [];
-	public currentSelectFiles: number[] = [];
+	public currentFile: IFileModel = new FileModel(0, '', '');
+	public currentFileData: string = '';
+	public currentFileDataCopy: string = '';
 
 	public setTitleSlug(slug: string): boolean
 	{

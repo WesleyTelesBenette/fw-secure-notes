@@ -55,6 +55,8 @@ html
 	&.red    { scrollbar-color: #a11111 #3a0000; }
 	&.purple { scrollbar-color: #6531c5 #12052b; }
 	&.green  { scrollbar-color: #2aaa6a #0b2519; }
+	&.pink   { scrollbar-color: #df589b #810d47; }
+	&.white  { scrollbar-color: #5f5f5f #b1b1b1; }
 	&.gold   { scrollbar-color: #b38711 #312303; }
 	&.coffe  { scrollbar-color: #443726 #0c0a07; }
 }
@@ -80,7 +82,7 @@ body
 		--background-normal: #1d170b;
 		--background-light: #312713;
 		--background-hyper-light: #504020;
-		--icon-list: "🥾 ";
+		--icon-list: "📦 ";
 	}
 
 	&.blue
@@ -171,6 +173,36 @@ body
 		--background-light: #130f0b;
 		--background-hyper-light: #292118;
 		--icon-list: "🪶 ";
+	}
+
+	&.pink
+	{
+		--text-light: #eee;
+		--text-dark: #a7a7a7;
+		--text-hyper-dark: #242424;
+		--text-mark-1: #ff8ac5fb;
+		--text-mark-2: #ff5faf;
+		--text-mark-3: #df589b;
+		--background-dark: #6b0d3c;
+		--background-normal: #810d47;
+		--background-light: #a7165e;
+		--background-hyper-light: #d41b78;
+		--icon-list: "🩷 ";
+	}
+
+	&.white
+	{
+		--text-light: #161616;
+		--text-dark: #4e4e4e;
+		--text-hyper-dark: #757575;
+		--text-mark-1: #505050;
+		--text-mark-2: #727272;
+		--text-mark-3: #919191;
+		--background-dark: #a0a0a0;
+		--background-normal: #eeeeee;
+		--background-light: #dadada;
+		--background-hyper-light: #c5c5c5;
+		--icon-list: "🪽 ";
 	}
 
 	@keyframes initColor

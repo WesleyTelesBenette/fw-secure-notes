@@ -9,23 +9,18 @@ import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, C
 	styleUrl: './markdown-show.component.scss',
 	templateUrl: './markdown-show.component.html',
 })
-export class MarkdownShowComponent implements OnInit, AfterViewInit
+export class MarkdownShowComponent implements AfterViewInit
 {
 	@ViewChild('markdownLine') line!: ElementRef<HTMLDivElement>;
 	private lineTypes: string[] = ['---', '- ', '# ', '## ', '### '];
-	public lineFinalContent: string = '';
+	public finalContent: string = '';
 	public ngContent: string = '';
 
-	public constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
-
-	public ngOnInit(): void
-	{
-
-	}
+	public constructor(private cdr: ChangeDetectorRef) {}
 
 	public ngAfterViewInit(): void
 	{
-		if (this.lineFinalContent === '')
+		if (this.finalContent === '')
 		{
 			this.contentHandled();
 			this.cdr.detectChanges();
@@ -69,7 +64,7 @@ export class MarkdownShowComponent implements OnInit, AfterViewInit
 			case(this.lineTypes[2]): { contentText = `<h2>${contentNext}</h2>`; break; }
 			case(this.lineTypes[3]): { contentText = `<h3>${contentNext}</h3>`; break; }
 			case(this.lineTypes[4]): { contentText = `<h4>${contentNext}</h4>`; break; }
-			default: { if (content === '') contentText = `<br/>`; else contentText = content;  }
+			default: { contentText = (content !== '') ? `<p>${content}</p>` : '<br/>'; }
 		}
 
 		return contentText;
@@ -81,7 +76,7 @@ export class MarkdownShowComponent implements OnInit, AfterViewInit
 			.replace(/\*\*\*(.*?)\*\*\*/g, '<i><b>$1</b></i>')
 			.replace(/\*\*(.*?)\*\*/g,     '<b>$1</b>')
 			.replace(/\*(.*?)\*/g,         '<i>$1</i>')
-			.replace(/\$\$(.*?)\$\$/g,      '<mark>$1</mark>')
+			.replace(/\=\=(.*?)\=\=/g,     '<mark>$1</mark>')
 			.replace(/\~(.*?)\~/g,         '<s>$1</s>');
 	}
 
@@ -91,11 +86,16 @@ export class MarkdownShowComponent implements OnInit, AfterViewInit
 
 		if (content !== undefined)
 		{
-			content = this.sanitizeText(content);
-			content = this.setLineType(content);
-			content = this.setLineStyles(content);
+			let contentLines = content.split('\n');
 
-			this.lineFinalContent = content;
+			for (let line of contentLines)
+			{
+				line = this.sanitizeText(line);
+				line = this.setLineType(line);
+				line = this.setLineStyles(line);
+
+				this.finalContent += line;
+			}
 		}
 	}
 }

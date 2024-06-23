@@ -39,14 +39,13 @@ export type TypeErrorPage =
 	styleUrls: ['./note-page.component.scss', '../../components/markdown-show/markdown-show.component.scss'],
 	templateUrl: './note-page.component.html',
 })
-export class NotePageComponent implements OnInit, AfterViewChecked
+export class NotePageComponent implements OnInit
 {
 	private pageSubject = new BehaviorSubject<PageModel>(new PageModel());
 	private page$ = this.pageSubject.asObservable();
 	public currentPage!: PageModel;
 
-	@ViewChild('contentFile') content!: ElementRef<HTMLDivElement>;
-	@ViewChild('titleInputContainer') titleInputContainer!: ElementRef<HTMLDivElement>;
+	@ViewChild('contentFile') contentFile!: ElementRef<HTMLTextAreaElement>;
 	@ViewChild('titleInput') titleInput!: ElementRef<HTMLTextAreaElement>;
 	public titleInputOn: boolean = false;
 
@@ -204,9 +203,9 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 				this.inputPasswordModal = '';
 
 				const updateArchivedTitle = (this.archivedUpdateTitle[0]) ? (this.updateFileTitle(this.archivedUpdateTitle[1])) : true;
-				//const updateArchivedContent = (this.archivedUpdateContent[0]) ? (this.updateFileLineContent(this.archivedUpdateContent[1])) : true;
+				const updateArchivedContent = (this.archivedUpdateContent[0]) ? (this.updateFileContent(this.archivedUpdateContent[1])) : true;
 
-				if (updateArchivedTitle)
+				if ((updateArchivedTitle) && (updateArchivedContent))
 				{
 					this.initPage();
 					return;
@@ -257,7 +256,7 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		const oldFileIndex = this.currentPage.fileList.indexOf
 		(
 			this.currentPage.fileList.find(f => f.id == this.currentPage.currentFile.id)
-			?? new FileModel(-1, '', [])
+			?? new FileModel(-1, '', '')
 		);
 
 		if ((oldFileIndex === -1) || (this.currentPage.fileList[oldFileIndex].title == inputValue))
@@ -344,16 +343,10 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 
 			if (response.statusCode === 200)
 			{
-				const data = response.content;
-				let fileData: MapIntString[] = [];
-
-				for (let c = 0; c < data.content.length; c++)
-					fileData.push(new MapIntString(c, data.content[c]));
-
-				this.currentPage.currentFileIndex = fileData.length - 1;
-				this.currentPage.currentFile = new FileModel(data.id, data.title, []);
-				this.currentPage.currentFileData  = fileData;
+				this.currentPage.currentFile = new FileModel(response.content.id, response.content.title, '');
+				this.currentPage.currentFileData = response.content.content;
 				this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
+
 
 				this.currentPage.fileUpdateContentOn = false;
 				this.updatePage();
@@ -375,168 +368,60 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		}
 	}
 
+
 	//##############################
 	// * LINES *
 	//##############################
-	public lineEventUpdateWithFocus(event: Event, indexShow: number, indexFile: number)
+	public callUpdateFileContent()
 	{
-		const elementInput = event.target as HTMLInputElement;
-		const oldDataLine = this.currentPage.currentFileDataCopy.find(f => f.index === indexFile);
+		const content = this.contentFile.nativeElement;
 
-		if ((oldDataLine) && (oldDataLine.line != elementInput.value))
+		if (content)
 		{
-			this.updateFileLineContent(indexShow, indexFile, elementInput.value);
-		}
-	};
-
-	public lineEventChangeWithClick(event: KeyboardEvent, indexShow: number, indexFile: number)
-	{
-		const elementInput = event.target as HTMLInputElement;
-
-		if (elementInput === document.activeElement)
-		{
-			const dataLine = this.currentPage.currentFileDataCopy.find(f => f.index === indexFile);
-
-			if (dataLine)
-			{
-				if (event.key === 'Enter')
-				{
-					elementInput.blur();
-					this.updateFileAddLine(indexShow+1);
-					return;
-				}
-
-				if((event.key === 'Backspace') && (elementInput.value === '') && (this.currentPage.currentFileData.length > 1))
-				{
-					this.updateFileRemoveLine(indexShow, indexFile);
-					return;
-				}
-			}
+			this.updateFileContent(content.value);
 		}
 	}
 
-	public ngAfterViewChecked(): void
+	private async updateFileContent(content: string)
 	{
-		if ((this.currentPage.currentSelectFiles.length > 0) && (this.content !== undefined))
+		console.log('News: [', content, ', ', this.currentPage.currentFileData, ']');
+		console.log('Old: ', this.currentPage.currentFileDataCopy);
+
+		this.currentPage.fileUpdateContentInputOn = true;
+
+		if ((content === this.currentPage.currentFileDataCopy))
 		{
-			const divInputs = this.content.nativeElement as HTMLDivElement;
-
-			if (divInputs)
-			{
-				const lineDivs = divInputs.querySelectorAll('.line');
-
-				const firstLineFocus = this.currentPage.currentFileData
-					.find(f => f.index === this.currentPage.currentSelectFiles[0]);
-
-				console.log('Update view');
-				console.log('len: ', this.currentPage.currentSelectFiles.length);
-
-				if (firstLineFocus)
-				{
-					const firstLineFocusIndex = this.currentPage.currentFileData.indexOf(firstLineFocus);
-
-					if ((firstLineFocusIndex != -1) && (lineDivs.length >= firstLineFocusIndex))
-					{
-						const inputDiv = lineDivs[firstLineFocusIndex] as HTMLDivElement;
-
-						if (inputDiv)
-						{
-							const input = inputDiv.querySelector('.line-content') as HTMLInputElement;
-
-							if (input)
-							{
-								input.blur();
-								input.focus();
-								this.currentPage.currentSelectFiles.splice(0, 1);
-								this.updatePage();
-								return;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public selectInput(input: HTMLInputElement, index: number)
-	{
-		input.focus();
-		this.currentPage.currentSelectFiles.splice(index, 1);
-	}
-
-	private async updateFileAddLine(indexShow: number)
-	{
-		const currentFileIndex = ++this.currentPage.currentFileIndex;
-		this.currentPage.currentFileData.splice(indexShow, 0, new MapIntString(currentFileIndex, ""));
-		this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
-		this.currentPage.currentUpdateFileLines.push(currentFileIndex);
-		this.updatePage();
-
-		try
-		{
-			var resonse = await this._file.updateFileAddLine
-			(
-				this.currentPage.titleSlug,
-				this.currentPage.pinSlug,
-				this.currentPage.currentFile.id,
-				indexShow
-			);
-
-			if (resonse.statusCode == 200)
-			{
-				const lineUpdateIndex = this.currentPage.currentUpdateFileLines.indexOf(currentFileIndex);
-
-				if (lineUpdateIndex != -1)
-				{
-					this.currentPage.currentUpdateFileLines.splice(lineUpdateIndex, 1);
-					this.currentPage.currentSelectFiles.push(currentFileIndex);
-					this.updatePage();
-					return;
-				}
-			}
-
-			throw Error;
-		}
-		catch
-		{
-			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
-		}
-	}
-
-	private async updateFileLineContent(indexShow: number, indexFile: number, content: string)
-	{
-		const fileLine = this.currentPage.currentFileData.find(f => f.index === indexFile);
-		const fileUpdate = this.currentPage.currentUpdateFileLines.indexOf(indexFile);
-
-		if ((fileLine === undefined) || (fileUpdate !== -1))
+			await new Promise(resolve => setTimeout(resolve, 1));
+			this.currentPage.fileUpdateContentInputOn = false;
 			return;
+		}
 
-		const fileLineIndex = this.currentPage.currentFileData.indexOf(fileLine);
-		this.currentPage.currentFileData[fileLineIndex].line = content;
+		this.currentPage.currentFileData = content;
 		this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
-		this.currentPage.currentUpdateFileLines.push(indexFile);
 		this.updatePage();
 
 		try
 		{
-			var resonse = await this._file.updateFileLineContent
+			var resonse = await this._file.updateFileContent
 			(
 				this.currentPage.titleSlug,
 				this.currentPage.pinSlug,
 				this.currentPage.currentFile.id,
-				indexShow,
 				content
 			);
 
-			if (resonse.statusCode == 200)
+			if (resonse.statusCode === 200)
 			{
-				const lineUpdateIndex = this.currentPage.currentUpdateFileLines.indexOf(indexFile);
+				this.currentPage.fileUpdateContentInputOn = false;
+				return;
+			}
 
-				if (lineUpdateIndex != -1)
-				{
-					this.currentPage.currentUpdateFileLines.splice(lineUpdateIndex, 1);
-					return;
-				}
+			if (resonse.statusCode === 401)
+			{
+				this.archivedUpdateContent = [true, content];
+				this.callInputPasswordError();
+				this.currentPage.fileUpdateContentInputOn = false;
+				return;
 			}
 
 			throw Error;
@@ -545,50 +430,7 @@ export class NotePageComponent implements OnInit, AfterViewChecked
 		{
 			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
 		}
-	}
 
-	public async updateFileRemoveLine(indexShow: number, indexFile: number)
-	{
-		this.currentPage.currentUpdateFileLines.push(indexFile);
-		this.updatePage();
-
-		const lineIndexFileFocus = this.currentPage
-			.currentFileData[(indexShow > 0) ? indexShow-1 : 0].index;
-
-		console.log('indexShow: ', indexShow);
-		console.log('IndexFocus: ', lineIndexFileFocus);
-
-		try
-		{
-			var response = await this._file.updateFileRemoveLine
-			(
-				this.currentPage.titleSlug,
-				this.currentPage.pinSlug,
-				this.currentPage.currentFile.id,
-				indexShow
-			);
-
-			if (response.statusCode == 200)
-			{
-				const lineUpdateIndex = this.currentPage.currentUpdateFileLines.indexOf(indexFile);
-
-				if (lineUpdateIndex != -1)
-				{
-					this.currentPage.currentUpdateFileLines.splice(lineUpdateIndex, 1);
-					this.currentPage.currentFileData.splice(indexShow, 1);
-					this.currentPage.currentFileDataCopy = this.currentPage.currentFileData;
-					this.currentPage.currentSelectFiles.push(lineIndexFileFocus);
-					this.updatePage();
-					return;
-				}
-			}
-
-			throw Error;
-		}
-		catch
-		{
-			this.errorPage('500 - Internal Server Error', 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :(');
-		}
 	}
 
 
