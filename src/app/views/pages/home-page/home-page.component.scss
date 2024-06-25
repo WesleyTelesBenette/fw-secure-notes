@@ -9,6 +9,7 @@
 
 	min-width: 100vw;
 	min-height: 100vh;
+	max-height: 100vh;
 	background-color: var(--background-dark);
 
 	header
@@ -52,19 +53,27 @@
 			align-items: center;
 			justify-content: center;
 			user-select: none;
+			padding: 0px 15px;
+
+			width: 100%;
 
 			.image
 			{
-				width: 25%;
+				width: 350px;
+				max-width: 85%;
 			}
 		}
 
 		.subtitle
 		{
+			padding: 0px 15px;
+			margin-bottom: 50px;
+
+			width: 100%;
+
 			font-size: 1em;
 			color: var(--text-dark);
-			padding: 0px;
-			margin-bottom: 50px;
+			text-align: center;
 		}
 
 		.input
@@ -75,7 +84,8 @@
 			padding-right: 15px;
 			user-select: none;
 
-			width: 30%;
+			width: 300px;
+			max-width: 95%;
 			height: 40px;
 			background-color: var(--text-light);
 			border: none;

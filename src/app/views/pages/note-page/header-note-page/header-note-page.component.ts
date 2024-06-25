@@ -15,7 +15,7 @@ import { LoadingContentPageComponent } from '../../../components/loading-content
     selector: 'app-header-note-page',
     standalone: true,
     templateUrl: './header-note-page.component.html',
-    styleUrl: './header-note-page.component.scss',
+    styleUrls: ['./header-note-page.component.scss', './app-info-page.scss', 'model-files.scss'],
     imports: [CommonModule, ModalInfoComponent, FormsModule, LoadingContentPageComponent]
 })
 export default class HeaderNotePageComponent implements OnInit
