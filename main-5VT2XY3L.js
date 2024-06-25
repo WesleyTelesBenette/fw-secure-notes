@@ -32,8 +32,8 @@ import{$ as Ce,$a as En,A as co,Aa as Di,Ab as Ro,B as L,Ba as bo,Bb as K,C as K
 		hr { margin: 0px; margin-bottom: 20px; min-width: 80%; height: 2px; background-color: var(--background-hyper-light); border: none; opacity: 1; }
 		li { list-style: var(--icon-list); accent-color: red; font-weight: 400; font-size: 1.1em;
 			&.sub1 { padding-left: 20px; list-style: "* "; }
-			&.sub2 { padding-left: 20px; list-style: "- "; }
-			&.sub3 { padding-left: 20px; list-style: ". "; }
+			&.sub2 { padding-left: 40px; list-style: "- "; }
+			&.sub3 { padding-left: 60px; list-style: ". "; }
 		}
 		p  { margin: 0px; }
 		h2 { margin-top: 0.8em; margin-bottom: 0.3em; color: var(--text-mark-1); font-size: 1.7em; font-family: "Cinzel Decorative"; font-weight: 700; }
