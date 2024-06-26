@@ -12,7 +12,7 @@ import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, C
 export class MarkdownShowComponent implements AfterViewInit
 {
 	@ViewChild('markdownLine') line!: ElementRef<HTMLDivElement>;
-	private lineTypes: string[] = ['---', '- ', '# ', '## ', '### '];
+	private lineTypes: string[] = ['- ', '-- ', '--- ','---- ', '# ', '## ', '### ', '---'];
 	public finalContent: string = '';
 	public ngContent: string = '';
 
@@ -59,11 +59,14 @@ export class MarkdownShowComponent implements AfterViewInit
 
 		switch (contentInit)
 		{
-			case(this.lineTypes[0]): { contentText = `<hr/>`; break; }
-			case(this.lineTypes[1]): { contentText = `<li>${contentNext}</li>`; break; }
-			case(this.lineTypes[2]): { contentText = `<h2>${contentNext}</h2>`; break; }
-			case(this.lineTypes[3]): { contentText = `<h3>${contentNext}</h3>`; break; }
-			case(this.lineTypes[4]): { contentText = `<h4>${contentNext}</h4>`; break; }
+			case(this.lineTypes[0]): { contentText = `<li>${contentNext}</li>`; break; }
+			case(this.lineTypes[1]): { contentText = `<li class="sub1">${contentNext}</li>`; break; }
+			case(this.lineTypes[2]): { contentText = `<li class="sub2">${contentNext}</li>`; break; }
+			case(this.lineTypes[3]): { contentText = `<li class="sub3">${contentNext}</li>`; break; }
+			case(this.lineTypes[4]): { contentText = `<h2>${contentNext}</h2>`; break; }
+			case(this.lineTypes[5]): { contentText = `<h3>${contentNext}</h3>`; break; }
+			case(this.lineTypes[6]): { contentText = `<h4>${contentNext}</h4>`; break; }
+			case(this.lineTypes[7]): { contentText = `<hr/>`; break; }
 			default: { contentText = (content !== '') ? `<p>${content}</p>` : '<br/>'; }
 		}
 
@@ -73,11 +76,12 @@ export class MarkdownShowComponent implements AfterViewInit
 	private setLineStyles(content: string): string
 	{
 		return content
-			.replace(/\*\*\*(.*?)\*\*\*/g, '<i><b>$1</b></i>')
-			.replace(/\*\*(.*?)\*\*/g,     '<b>$1</b>')
-			.replace(/\*(.*?)\*/g,         '<i>$1</i>')
-			.replace(/\=\=(.*?)\=\=/g,     '<mark>$1</mark>')
-			.replace(/\~(.*?)\~/g,         '<s>$1</s>');
+			.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+			.replace(/\*\*\*\b(.*?)\b\*\*\*/g,  '<i><b>$1</b></i>')
+			.replace(/\*\*\b(.*?)\b\*\*/g,      '<b>$1</b>')
+			.replace(/\*\b(.*?)\b\*/g,      '<i>$1</i>')
+			.replace(/\~(.*?)\~/g,          '<s>$1</s>')
+			.replace(/\_(.*?)\_/g,          '<u>$1</u>');
 	}
 
 	public contentHandled(): void

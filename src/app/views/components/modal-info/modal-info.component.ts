@@ -16,11 +16,13 @@ export default class ModalInfoComponent implements AfterViewInit
 
 	@Input() smallSize: boolean = false;
 	@Input() largeSize: boolean = false;
+	@Input() contentCenter: boolean = false;
 
 	@Input() hasTitle: boolean = true;
 	@Input() hasContent: boolean = true;
 	@Input() hasButton: boolean = true;
 
+	@Input() reloadButton: boolean = false;
 	@Input() closeEnter: boolean = false;
 	@Input() closeSpace: boolean = false;
 	@Input() closeClick: boolean = false;
@@ -105,5 +107,10 @@ export default class ModalInfoComponent implements AfterViewInit
 			this.clickAction = true;
 			this.buttonClick.emit();
 		}
+	}
+
+	public reloadPage()
+	{
+		window.location.reload();
 	}
 }

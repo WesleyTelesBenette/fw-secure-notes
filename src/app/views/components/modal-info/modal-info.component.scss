@@ -54,15 +54,19 @@
 			font-weight: 800;
 			font-style: italic;
 		}
+	}
 
-
+	.content-center
+	{
+		text-align: center;
 	}
 
 	.footer
 	{
 		display: flex;
+		flex-direction: row;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-around;
 
 		border: none;
 		background-color: var(--background-dark);
@@ -70,12 +74,25 @@
 
 		.button
 		{
-			width: 30%;
+			width: 40%;
 			border-radius: 10px;
 			border: none;
 			background-color: var(--background-light);
 
 			color: var(--text-light);
+		}
+
+		@media only screen and (max-width: 450px)
+		{
+			&
+			{
+				flex-direction: column;
+
+				.button
+				{
+					width: 90%;
+				}
+			}
 		}
 	}
 }
@@ -116,7 +133,9 @@
 .show-button
 {
 	display: block;
+	padding: 0px 10px;
 	animation: showButton 0.8s;
+
 	height: 40px;
 	font-size: 1em;
 }

@@ -78,10 +78,11 @@ body
 		{
 			background-color: transparent !important;
 			color: var(--text-light) !important;
+			border: 1px solid var(--background-hyper-light);
 			box-shadow: 0 0 0 30px transparent inset !important;
-			-webkit-box-shadow: 0 0 0 30px transparent inset !important;
+			-webkit-box-shadow: 0 0 0 30px var(--background-light) inset !important;
 			-webkit-text-fill-color: var(--text-light) !important;
-			transition: background-color 5000s ease-in-out 0s !important;
+			transition: none !important;
 		}
 	}
 

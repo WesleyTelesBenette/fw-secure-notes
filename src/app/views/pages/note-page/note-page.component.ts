@@ -384,9 +384,6 @@ export class NotePageComponent implements OnInit
 
 	private async updateFileContent(content: string)
 	{
-		console.log('News: [', content, ', ', this.currentPage.currentFileData, ']');
-		console.log('Old: ', this.currentPage.currentFileDataCopy);
-
 		this.currentPage.fileUpdateContentInputOn = true;
 
 		if ((content === this.currentPage.currentFileDataCopy))
@@ -441,8 +438,6 @@ export class NotePageComponent implements OnInit
 		error: TypeErrorPage = '500 - Internal Server Error',
 		message: string = 'Ocorreu um erro com o servidor...\nSinto muito pelo incômodo :('): void
 	{
-		console.error('Erro: ' + error + '.\n' + 'Descrição: ' + message);
-
 		this.currentPage.pageOn = false;
 		this.pageErrorOn = true;
 		this.pageErrorTitle = error;

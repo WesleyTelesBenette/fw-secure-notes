@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalInfoComponent } from './modal-info.component';
+import ModalInfoComponent from './modal-info.component';
 
 describe('ModalInfoComponent', () => {
   let component: ModalInfoComponent;

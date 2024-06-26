@@ -20,7 +20,7 @@
 				<h1 class="title">{{ title }}</h1>
 			</div>
 
-			<div *ngIf="hasContent" class="modal-body content">
+			<div *ngIf="hasContent" class="modal-body content" [ngClass]="{'content-center': contentCenter}">
 				<ng-content/>
 			</div>
 
@@ -32,6 +32,14 @@
 					(click)="closeClick ? null : clickOn()"
 				>
 					{{ buttonName }}
+				</button>
+				<button
+					*ngIf="reloadButton"
+					type="button"
+					class="button show-button click"
+					(click)="reloadPage()"
+				>
+					Recarregar Página
 				</button>
 			</div>
 		</div>
