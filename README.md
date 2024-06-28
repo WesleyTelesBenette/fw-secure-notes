@@ -26,11 +26,10 @@ Acesse a nossa Aplicação (site) gratuitamente por aqui: [FW Secure Notes](http
 
 ### Caso tenha interesse na API do Projeto
 - [Link do Repositório da API](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
-
 <br/>
 
 ## 🛠️ Featurs em Construção
-- [ ] Correção de bugs geral
+- [ ] Correção de bugs no geral
 <br/><br/>
 
 ## 💻 Como executar o Projeto localmente?
@@ -59,7 +58,7 @@ npm install
 # Rode a aplicação
 ng serve
 ```
-<br/><br/>
+<br/>
 
 ## 📖 Manual do Usuário
 
