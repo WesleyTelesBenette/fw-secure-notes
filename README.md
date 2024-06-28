@@ -7,7 +7,7 @@ Um projeto Open Source de um Web App para criar e compartilhar anotações, que 
 
 ## ✨ Porque usar a nossa aplicação?
 Com o **FW Secure Notes** você é capaz de:
-- ✏️ Criar anotações de forma simples e rapida, na estrutura de escrita de um bloco de notas.
+- ✏️ Criar anotações de forma simples e rápida, na estrutura de escrita de um bloco de notas.
 - 👁️ Visualizar suas notas de uma forma elegante, utilizando um interpretador similar a Markdown.
 - 🎨 Adequar a cor do sistema, com base no seu gosto pessoal.
 - 🛜 Acessar suas anotações em qualquer dispositivo que tenha acesso ao Google.
@@ -19,24 +19,24 @@ Com o **FW Secure Notes** você é capaz de:
 </p>
 
 ## ⚠️ Avisos
-O recursos (servidores) utilizados para o funcionamento da aplicação são gratuítos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
+Os recursos (servidores) utilizados para o funcionamento da aplicação são gratuitos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
 
 # 📦 Recursos Extras
 ## 🛠️ Detalhes Técnicos
 
-### Tecnolgias Frontend
+### Tecnologias Frontend
 - **Angular.js**: v17.2.3
 	- **TypeScript**: v5.3.2
 
-### Tecnolgias Backend
+### Tecnologias Backend
 A API do Projeto foi feita em:
 - **ASP.NET** (C#): v8.0
 - **PostgreSQL**: v15.1.1.64
-- [Link do Resitório](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
+- [Link do Repositório da API](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
 
 ## 📖 Manual do Usuário
 
-### 1. Página Incial
+### 1. Página Inicial
 A página inicial é onde você pode criar uma página ou pesquisar uma que já exista.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/main-page.png" width="80%" />
@@ -46,7 +46,7 @@ Após preencher o campo de nome, você deve completar o segundo campo de acordo 
 - **🔍 Pesquisar**: Caso você deseje acessar uma página que já exista, insira o PIN da página.
 
 ### 2. Carregamento da Página
-Uma página comum, que você vai ver sempre que realizar qualquer uma das duas ações do item **"1."**.
+Uma visão comum que você vai ter sempre que realizar qualquer uma das duas ações do item **"1."**.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-page.png" width="80%" />
 
@@ -57,7 +57,7 @@ Aqui você deve inserir sua senha, para que você possa efetivamente acessar sua
 	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password.png" width="80%" />
 	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password-error.png" width="80%" />
 </p>
-Apenas insira sua senha (óbvimante apenas se sua página tiver uma) e pressione "Enter".
+Apenas insira sua senha (obviamente apenas se sua página tiver uma) e pressione "Enter".
 
 ### 4. Página de Anotações
 
@@ -89,7 +89,7 @@ O Título da Página é composto por: Nome da Página + PIN.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/title.png" width="80%" />
 
-1. Nesse exemplo os valoes são:
+1. Nesse exemplo os valores são:
 	- Nome: **string**.
  	- PIN: **FYH**.
 
@@ -115,14 +115,15 @@ Caso durante o uso da aplicação você precise consultar esse manual, existe um
 </p>
 
 1. Botão para acessar a aba de ajuda.
-2. Link para essa documentação, apenas clique em "Documentação Oficial".
+2. Link para essa documentação. Apenas clique em "Documentação Oficial".
 
 #### 4.5 URL
 
-A URL da sua página é a forma mais eficiente de acessá-la em outro momento, e copiar essa URL é extremamente fácil, basta clicar no botão de copiar link. 
+A URL da sua página é a forma mais eficiente de acessá-la em outro momento.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/url.png" width="80%" />
 
+Copiar essa URL é extremamente fácil, basta clicar no botão de copiar link. 
 1. Botão de **Copiar**.
 
 #### 4.6 Configurações
@@ -136,7 +137,7 @@ Na aba de configurações você pode acessar e alterar aspectos da página.
 </p>
 
 1. Botão para acessar as configurações.
-2. Informrações sobre a página.
+2. Informações sobre a página.
 3. Temas disponíveis para o sistema.
 4. Trocar a senha de acesso à Página.
 5. Uma forma não convencional de deslogar da sua página.
@@ -154,8 +155,8 @@ A forma mais simples e prática de deslogar da sua página.
 
 Ao criar sua página, ela possui um arquivo que serve como manual para essas funcionalidades básicas, então vou apenas repeti-lo aqui:
 
-
 **Formatar texto**
+
 Você pode formatar seus textos com caracteres especiais, deixando o texto em negrito, itálico etc.
 - \*Texto em Itálico*
 - \*\*Texto em Negrito**
@@ -164,6 +165,7 @@ Você pode formatar seus textos com caracteres especiais, deixando o texto em ne
 - \_Texto Sublinhado_
 
 **Adicionar Links**
+
 Você pode criar um link, definindo um título e um endereço.
 - \[Receitas de Abobrinha](https://www.terra.com.br/vida-e-estilo/degusta/receitas/5-receitas-com-abobrinha-para-fugir-do-convencional-nas-refeicoes,f9bba1fb767aa0c53ff9626b7ecd83595g4npc2z.html).
 
