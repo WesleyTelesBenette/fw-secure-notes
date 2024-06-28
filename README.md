@@ -17,10 +17,15 @@ Com o **FW Secure Notes** você é capaz de:
 - 🔒 Acessar suas anotações de forma simples, podem logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="80%" />
-<br/>
+
+## ⭐ Aplicação
+Acesse a nossa Aplicação (site) gratuitamente por aqui: [FW Secure Notes](https://wesleytelesbenette.github.io/fw-secure-notes).
 
 > [!WARNING]
 > Os recursos (servidores) utilizados para o funcionamento da aplicação são gratuitos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
+
+### Caso tenha interesse na API do Projeto
+- [Link do Repositório da API](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
 
 <br/>
 
@@ -39,7 +44,7 @@ npm install -g @angular/cli
 
 ### Execução
 ```bash
-# Clone o repostório
+# Clone o repositório
 git clone https://github.com/WesleyTelesBenette/fw-secure-notes.git
 ```
 ```bash
@@ -54,8 +59,6 @@ npm install
 # Rode a aplicação
 ng serve
 ```
-### Caso tenha interesse na API do Projeto
-- [Link do Repositório da API](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
 <br/><br/>
 
 ## 📖 Manual do Usuário
