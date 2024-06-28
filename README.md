@@ -24,6 +24,16 @@ O recursos (servidores) utilizados para o funcionamento da aplicação são grat
 # 📦 Recursos Extras
 ## 🛠️ Detalhes Técnicos
 
+### Tecnolgias Frontend
+- **Angular.js**: v17.2.3
+	- **TypeScript**: v5.3.2
+
+### Tecnolgias Backend
+A API do Projeto foi feita em:
+- **ASP.NET** (C#): v8.0
+- **PostgreSQL**: v15.1.1.64
+- [Link do Resitório](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
+
 ## 📖 Manual do Usuário
 
 ### 1. Página Incial
@@ -59,6 +69,8 @@ Após o carregamento da sua página, você vai poder ter acesso a todos os recur
 </p>
 
 #### 4.1 Arquivos
+
+Os arquivos são onde você vai armazenar suas anotações.
 
 <p>
 	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files-button.png" width="80%" />
@@ -140,9 +152,8 @@ A forma mais simples e prática de deslogar da sua página.
 
 #### 4.8 Estilização
 
-Ao criar sua página, ela possui um arquivo que serve como manual para essas funcionalidades básicas, então vou apenas repeti-lo aqui.
+Ao criar sua página, ela possui um arquivo que serve como manual para essas funcionalidades básicas, então vou apenas repeti-lo aqui:
 
-##### Estilização 🎨
 
 **Formatar texto**
 Você pode formatar seus textos com caracteres especiais, deixando o texto em negrito, itálico etc.
