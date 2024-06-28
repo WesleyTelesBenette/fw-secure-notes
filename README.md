@@ -14,8 +14,8 @@ Com o **FW Secure Notes** você é capaz de:
 - 🔒 Acessar suas anotações de forma simples, podem logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
 
 <p>
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png" width="49%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="80%" />
 </p>
 
 ## ⚠️ Avisos
@@ -29,7 +29,7 @@ O recursos (servidores) utilizados para o funcionamento da aplicação são grat
 ### 1. Página Incial
 A página inicial é onde você pode criar uma página ou pesquisar uma que já exista.
 
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/main-page.png" width="60%" />
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/main-page.png" width="80%" />
 
 Após preencher o campo de nome, você deve completar o segundo campo de acordo com seu objetivo:
 - **✨ Criar**: Caso sua intenção seja criar uma página, insira uma senha do tamanho que quiser (inclusive nenhuma senha).
@@ -38,14 +38,14 @@ Após preencher o campo de nome, você deve completar o segundo campo de acordo 
 ### 2. Carregamento da Página
 Uma página comum, que você vai ver sempre que realizar qualquer uma das duas ações do item **"1."**.
 
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-page.png" width="60%" />
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-page.png" width="80%" />
 
 ### 3. Página de Login
 Aqui você deve inserir sua senha, para que você possa efetivamente acessar sua página.
 
 <p>
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password.png" width="49%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password-error.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password-error.png" width="80%" />
 </p>
 Apenas insira sua senha (óbvimante apenas se sua página tiver uma) e pressione "Enter".
 
@@ -54,15 +54,15 @@ Apenas insira sua senha (óbvimante apenas se sua página tiver uma) e pressione
 Após o carregamento da sua página, você vai poder ter acesso a todos os recursos do sistema.
 
 <p>
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-file.png" width="49%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-file.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="80%" />
 </p>
 
 #### 4.1 Arquivos
 
 <p>
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files-button.png" width="49%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files-button.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files.png" width="80%" />
 </p>
 
 O sistema de arquivos da página funciona da seguinte forma:
@@ -75,7 +75,7 @@ O sistema de arquivos da página funciona da seguinte forma:
 
 O Título da Página é composto por: Nome da Página + PIN.
 
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/title.png" width="60%" />
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/title.png" width="80%" />
 
 1. Nesse exemplo os valoes são:
 	- Nome: **string**.
@@ -86,22 +86,22 @@ O Título da Página é composto por: Nome da Página + PIN.
 Os Modos de Visualização são fundamentais para a manipulação e leitura do conteúdo dos arquivos.
 
 <p>
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-edit.png" width="49%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-view.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-edit.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-view.png" width="80%" />
 </p>
 
 1. Botão para ativar o **Modo de Edição**, onde o conteúdo é editável.
 2. Botão para ativar o **Modo de Visualização**, onde o conteúdo é exibido com um sistema similar a Markdown.
 
 #### 4.4 Ajuda
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="80%" />
 Explicação...
 
 #### 4.5 URL
 
 A URL da sua página é a forma mais eficiente de acessá-la em outro momento, e copiar essa URL é extremamente fácil, basta clicar no botão de copiar link. 
 
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/url.png" width="60%" />
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/url.png" width="80%" />
 
 1. Botão de **Copiar**.
 
@@ -110,9 +110,9 @@ A URL da sua página é a forma mais eficiente de acessá-la em outro momento, e
 Na aba de configurações você pode acessar e alterar aspectos da página.
 
 <p>
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-button.png" width="49%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs.png" width="49%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-2.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-button.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-2.png" width="80%" />
 </p>
 
 1. Botão para acessar as configurações.
@@ -126,7 +126,7 @@ Na aba de configurações você pode acessar e alterar aspectos da página.
 
 A forma mais simples e prática de deslogar da sua página.
 
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/logout.png" width="60%" />
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/logout.png" width="80%" />
 
 1. Botão de **Sair**.
 
