@@ -13,9 +13,10 @@ Com o **FW Secure Notes** você é capaz de:
 - 🛜 Acessar suas anotações em qualquer dispositivo que tenha acesso ao Google.
 - 🔒 Acessar suas anotações de forma simples, podem logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
 
-| Visão Geral | Temas de Cores |
-| --- | --- |
-| ![View...](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png) | ![Themes...](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png) |
+<p>
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="49%" />
+</p>
 
 ## ⚠️ Avisos
 O recursos (servidores) utilizados para o funcionamento da aplicação são gratuítos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
@@ -42,24 +43,27 @@ Uma página comum, que você vai ver sempre que realizar qualquer uma das duas a
 ### 3. Página de Login
 Aqui você deve inserir sua senha, para que você possa efetivamente acessar sua página.
 
-| Entrada de Senha | Erro de Senha |
-| --- | --- |
-| ![Password](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password.png) | ![Error](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password-error.png) |
-
+<p>
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/password-error.png" width="49%" />
+</p>
 Apenas insira sua senha (óbvimante apenas se sua página tiver uma) e pressione "Enter".
 
 ### 4. Página de Anotações
 
 Após o carregamento da sua página, você vai poder ter acesso a todos os recursos do sistema.
 
-| Estado de Carregamento | Estado Normal |
-| --- | --- |
-| ![Loading...](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-file.png) | ![Page](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png) |
+<p>
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-file.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="49%" />
+</p>
 
 #### 4.1 Arquivos
-| Acessar Arquivos | Gerenciar Arquivos |
-| --- | --- |
-| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files-button.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files.png) |
+
+<p>
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files-button.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files.png" width="49%" />
+</p>
 
 O sistema de arquivos da página funciona da seguinte forma:
 1. O botão de "Arquivos" para acessar esse sistema.
@@ -81,9 +85,10 @@ O Título da Página é composto por: Nome da Página + PIN.
 
 Os Modos de Visualização são fundamentais para a manipulação e leitura do conteúdo dos arquivos.
 
-| Modo de Edição | Modo de Visualização |
-| --- | --- |
-| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-edit.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-view.png) |
+<p>
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-edit.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-view.png" width="49%" />
+</p>
 
 1. Botão para ativar o **Modo de Edição**, onde o conteúdo é editável.
 2. Botão para ativar o **Modo de Visualização**, onde o conteúdo é exibido com um sistema similar a Markdown.
@@ -104,9 +109,11 @@ A URL da sua página é a forma mais eficiente de acessá-la em outro momento, e
 
 Na aba de configurações você pode acessar e alterar aspectos da página.
 
-| Acessar Configurações | Informações e Temas | Mudar senha e Excluir |
-| --- | --- | --- |
-| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-button.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-2.png) |
+<p>
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-button.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs.png" width="49%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-2.png" width="49%" />
+</p>
 
 1. Botão para acessar as configurações.
 2. Informrações sobre a página.
