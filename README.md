@@ -94,8 +94,16 @@ Os Modos de Visualização são fundamentais para a manipulação e leitura do c
 2. Botão para ativar o **Modo de Visualização**, onde o conteúdo é exibido com um sistema similar a Markdown.
 
 #### 4.4 Ajuda
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="80%" />
-Explicação...
+
+Caso durante o uso da aplicação você precise consultar esse manual, existe um link direto para cá.
+
+<p>
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/info-button.png" width="80%" />
+	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/info.png" width="80%" />
+</p>
+
+1. Botão para acessar a aba de ajuda.
+2. Link para essa documentação, apenas clique em "Documentação Oficial".
 
 #### 4.5 URL
 
