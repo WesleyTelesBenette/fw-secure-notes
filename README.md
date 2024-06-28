@@ -102,15 +102,64 @@ A URL da sua página é a forma mais eficiente de acessá-la em outro momento, e
 
 #### 4.6 Configurações
 
-| Acessar Configurações | Informações e Temas |
-| --- | --- |
-| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-button.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs.png) |
+Na aba de configurações você pode acessar e alterar aspectos da página.
 
+| Acessar Configurações | Informações e Temas | Mudar senha e Excluir |
+| --- | --- | --- |
+| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-button.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-2.png) |
+
+1. Botão para acessar as configurações.
+2. Informrações sobre a página.
+3. Temas disponíveis para o sistema.
+4. Trocar a senha de acesso à Página.
+5. Uma forma não convencional de deslogar da sua página.
+6. Excluir sua página permanentemente.
 
 #### 4.7 Sair
+
+A forma mais simples e prática de deslogar da sua página.
+
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/logout.png" width="60%" />
-Explicação...
+
+1. Botão de **Sair**.
 
 #### 4.8 Estilização
 
-Explicação...
+Ao criar sua página, ela possui um arquivo que serve como manual para essas funcionalidades básicas, então vou apenas repeti-lo aqui.
+
+##### Estilização 🎨
+
+**Formatar texto**
+Você pode formatar seus textos com caracteres especiais, deixando o texto em negrito, itálico etc.
+- \*Texto em Itálico*
+- \*\*Texto em Negrito**
+- \*\*\*Texto em Itálico e Negrito***
+- \~Texto Tachado~
+- \_Texto Sublinhado_
+
+**Adicionar Links**
+Você pode criar um link, definindo um título e um endereço.
+- \[Receitas de Abobrinha](https://www.terra.com.br/vida-e-estilo/degusta/receitas/5-receitas-com-abobrinha-para-fugir-do-convencional-nas-refeicoes,f9bba1fb767aa0c53ff9626b7ecd83595g4npc2z.html).
+
+**Criar Títulos**
+
+Colocando algumas dessas 3 variações no começo da linha, você conseguir criar um título bem legal 😎
+
+- \# Títulos
+- \## de diferentes
+- \### tamanhos
+
+**Criar Listas**
+
+Listas de itens, com 3 níveis de subitens.
+
+- \- Listas
+- \-- Subitem 1
+- \--- Subitem 2
+- \---- Subitem 3
+
+**Criar Linhas de Divisão**
+
+Você pode criar uma linha de divisão usando três hifens (---):
+
+\---
