@@ -69,7 +69,7 @@ O sistema de arquivos da página funciona da seguinte forma:
 
 #### 4.2 Título da Página
 
-O Título da Página é composto: por NomeDaPágina + PIN.
+O Título da Página é composto por: Nome da Página + PIN.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/title.png" width="60%" />
 
@@ -79,30 +79,38 @@ O Título da Página é composto: por NomeDaPágina + PIN.
 
 #### 4.3 Modos de Visualização
 
-Os Modos de Visualização, 
+Os Modos de Visualização são fundamentais para a manipulação e leitura do conteúdo dos arquivos.
 
 | Modo de Edição | Modo de Visualização |
 | --- | --- |
 | ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-edit.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-view.png) |
 
-Explicação...
+1. Botão para ativar o **Modo de Edição**, onde o conteúdo é editável.
+2. Botão para ativar o **Modo de Visualização**, onde o conteúdo é exibido com um sistema similar a Markdown.
 
 #### 4.4 Ajuda
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
 Explicação...
 
 #### 4.5 URL
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
-Explicação...
+
+A URL da sua página é a forma mais eficiente de acessá-la em outro momento, e copiar essa URL é extremamente fácil, basta clicar no botão de copiar link. 
+
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/url.png" width="60%" />
+
+1. Botão de **Copiar**.
 
 #### 4.6 Configurações
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="48%" />
-Explicação...
+
+| Acessar Configurações | Informações e Temas |
+| --- | --- |
+| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs-button.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/configs.png) |
+
 
 #### 4.7 Sair
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/logout.png" width="60%" />
 Explicação...
 
 #### 4.8 Estilização
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
+
 Explicação...
