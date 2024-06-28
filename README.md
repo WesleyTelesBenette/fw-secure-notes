@@ -5,6 +5,8 @@
 # FW Secure Notes
 Um projeto Open Source de um Web App para criar e compartilhar anotações, que preza por um acesso seguro e um design minimalista.
 
+![](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png)
+
 ## ✨ Porque usar a nossa aplicação?
 Com o **FW Secure Notes** você é capaz de:
 - ✏️ Criar anotações de forma simples e rápida, na estrutura de escrita de um bloco de notas.
@@ -13,10 +15,7 @@ Com o **FW Secure Notes** você é capaz de:
 - 🛜 Acessar suas anotações em qualquer dispositivo que tenha acesso ao Google.
 - 🔒 Acessar suas anotações de forma simples, podem logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
 
-<p>
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png" width="80%" />
-	<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="80%" />
-</p>
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="80%" />
 
 ## ⚠️ Avisos
 Os recursos (servidores) utilizados para o funcionamento da aplicação são gratuitos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
