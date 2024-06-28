@@ -6,6 +6,7 @@
 Um projeto Open Source de um Web App para criar e compartilhar anotações, que preza por um acesso seguro e um design minimalista.
 
 ![](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png)
+<br/><br/>
 
 ## ✨ Porque usar a nossa aplicação?
 Com o **FW Secure Notes** você é capaz de:
@@ -16,22 +17,46 @@ Com o **FW Secure Notes** você é capaz de:
 - 🔒 Acessar suas anotações de forma simples, podem logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="80%" />
+<br/>
 
-## ⚠️ Avisos
-Os recursos (servidores) utilizados para o funcionamento da aplicação são gratuitos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
+> [!WARNING]
+> Os recursos (servidores) utilizados para o funcionamento da aplicação são gratuitos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
 
-# 📦 Recursos Extras
-## 🛠️ Detalhes Técnicos
+<br/>
 
-### Tecnologias Frontend
-- **Angular.js**: v17.2.3
-	- **TypeScript**: v5.3.2
+## 🛠️ Featurs em Construção
+- [ ] Correção de bugs geral
+<br/><br/>
 
-### Tecnologias Backend
-A API do Projeto foi feita em:
-- **ASP.NET** (C#): v8.0
-- **PostgreSQL**: v15.1.1.64
+## 💻 Como executar o Projeto localmente?
+
+### Pré-requisitos
+- Tenha o [Node.js](https://nodejs.org/pt) instalado.
+- Tenha o Angular CLI instalado globalmente:
+```bash
+npm install -g @angular/cli
+```
+
+### Execução
+```bash
+# Clone o repostório
+git clone https://github.com/WesleyTelesBenette/fw-secure-notes.git
+```
+```bash
+# Acesse a pasta do projeto
+cd fw-secure-notes
+```
+```bash
+# Instale as dependências
+npm install
+```
+```bash
+# Rode a aplicação
+ng serve
+```
+### Caso tenha interesse na API do Projeto
 - [Link do Repositório da API](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
+<br/><br/>
 
 ## 📖 Manual do Usuário
 
