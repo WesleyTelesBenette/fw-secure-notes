@@ -57,15 +57,34 @@ Após o carregamento da sua página, você vai poder ter acesso a todos os recur
 | ![Loading...](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/loading-file.png) | ![Page](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png) |
 
 #### 4.1 Arquivos
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
-Explicação...
+| Acessar Arquivos | Gerenciar Arquivos |
+| --- | --- |
+| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files-button.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/files.png) |
+
+O sistema de arquivos da página funciona da seguinte forma:
+1. O botão de "Arquivos" para acessar esse sistema.
+2. Botão para criar um arquivo.
+3. Clicando no arquivo que você deseja acessar, ele será aberto.
+4. Botão para deletar o arquivo que você desejar excluir.
 
 #### 4.2 Título da Página
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
-Explicação...
 
-#### 4.3 Modos
-<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/manual.png" width="60%" />
+O Título da Página é composto: por NomeDaPágina + PIN.
+
+<img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/title.png" width="60%" />
+
+1. Nesse exemplo os valoes são:
+	- Nome: **string**.
+ 	- PIN: **FYH**.
+
+#### 4.3 Modos de Visualização
+
+Os Modos de Visualização, 
+
+| Modo de Edição | Modo de Visualização |
+| --- | --- |
+| ![Click](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-edit.png) | ![Files](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/mode-view.png) |
+
 Explicação...
 
 #### 4.4 Ajuda
