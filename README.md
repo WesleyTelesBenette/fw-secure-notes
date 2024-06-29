@@ -8,13 +8,13 @@ Um projeto Open Source de um Web App para criar e compartilhar anotações, que 
 ![](https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/example.png)
 <br/><br/>
 
-## ✨ Porque usar a nossa aplicação?
+## ✨ Por que usar a nossa aplicação?
 Com o **FW Secure Notes** você é capaz de:
 - ✏️ Criar anotações de forma simples e rápida, na estrutura de escrita de um bloco de notas.
 - 👁️ Visualizar suas notas de uma forma elegante, utilizando um interpretador similar a Markdown.
 - 🎨 Adequar a cor do sistema, com base no seu gosto pessoal.
 - 🛜 Acessar suas anotações em qualquer dispositivo que tenha acesso ao Google.
-- 🔒 Acessar suas anotações de forma simples, podem logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
+- 🔒 Acessar suas anotações de forma simples, podendo logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="80%" />
 
@@ -22,14 +22,14 @@ Com o **FW Secure Notes** você é capaz de:
 Acesse a nossa Aplicação (site) gratuitamente por aqui: [FW Secure Notes](https://wesleytelesbenette.github.io/fw-secure-notes).
 
 > [!WARNING]
-> Os recursos (servidores) utilizados para o funcionamento da aplicação são gratuitos, então é comum que nos primeiros acessos depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
+> Os recursos (servidores) utilizados para o funcionamento da aplicação são gratuitos, então, é comum que nos primeiros acessos, depois de períodos longos de inatividade, o sistema precise de ***alguns segundos para carregar alguns recursos*** (requisições no geral).
 
-### Caso tenha interesse na API do Projeto
+### Caso tenha interesse na API do Projeto:
 - [Link do Repositório da API](https://github.com/WesleyTelesBenette/fw-secure-notes-api/).
 <br/>
 
 ## 🛠️ Featurs em Construção
-- [ ] Correção de bugs no geral
+- [ ] Correção de bugs no geral.
 <br/><br/>
 
 ## 💻 Como executar o Projeto localmente?
@@ -179,7 +179,7 @@ A forma mais simples e prática de deslogar da sua página.
 
 #### 4.8 Estilização
 
-Ao criar sua página, ela possui um arquivo que serve como manual para essas funcionalidades básicas, então vou apenas repeti-lo aqui:
+Ao criar sua página, ela possui um arquivo que serve como manual para essas funcionalidades básicas, então, vou apenas repeti-lo aqui:
 
 **Formatar texto**
 
