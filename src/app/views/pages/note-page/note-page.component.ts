@@ -84,7 +84,7 @@ export class NotePageComponent implements OnInit
 		if (!(await this.loadPageConfig(titleSlug, pinSlug)))
 			return;
 
-		if ((!this.currentPage.pageHasPassword) || (await this.callTokenValide()))
+		if ((this.currentPage.pageHasPassword === false) || (await this.callTokenValide()))
 		{
 			this.initPage();
 			return;
@@ -107,16 +107,16 @@ export class NotePageComponent implements OnInit
 					.getPageHasPassword(this.currentPage.titleSlug, this.currentPage.pinSlug);
 
 				//Exist page
-				if (response.statusCode == 200)
+				if (response.statusCode === 200)
 				{
 					this.currentPage.pageTitle = `${titleSlug}-${pinSlug}`;
-					this.currentPage.pageHasPassword = (response.content != null)
+					this.currentPage.pageHasPassword = (response.content !== null)
 						? response.content : false;
 
 					return true; //Good Ending
 				}
 
-				if (response.statusCode == 404)
+				if (response.statusCode === 404)
 				{
 					this.errorPage('404 - Not Found', 'Essa página não existe...');
 					return false;
@@ -183,6 +183,12 @@ export class NotePageComponent implements OnInit
 
 	private callInputPassword()
 	{
+		if (this.currentPage.pageHasPassword === false)
+		{
+			this.callInputPasswordAction();
+			return;
+		}
+
 		this.currentPage.pageOn = false;
 		this.pagePasswordOn = true;
 		this.updatePage();

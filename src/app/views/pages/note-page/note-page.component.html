@@ -97,7 +97,7 @@
 	[buttonName]="'Confirmar'"
 	(buttonClick)="callInputPasswordAction()"
 >
-	<form>
+	<form autocomplete="off">
 		<app-input-password
 			[placeholder]="'Digite sua senha...'"
 			[(password)]="inputPasswordModal"

@@ -84,6 +84,15 @@ body
 			-webkit-text-fill-color: var(--text-light) !important;
 			transition: none !important;
 		}
+
+		span, a
+		{
+			font-weight: 800;
+			font-style: italic;
+			color: var(--text-mark-1);
+		}
+
+		a { text-decoration: underline var(--text-mark-3); }
 	}
 
 	&.brown
