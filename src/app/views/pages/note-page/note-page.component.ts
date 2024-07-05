@@ -294,6 +294,10 @@ export class NotePageComponent implements OnInit
 				});
 				this.currentPage.currentFile.title = inputValue;
 				this.currentPage.fileUpdateTitleOn = false;
+
+				if (this.archivedUpdateTitle[0])
+					this.archivedUpdateTitle = [false, ''];
+
 				return true;
 			}
 
@@ -392,7 +396,7 @@ export class NotePageComponent implements OnInit
 	{
 		this.currentPage.fileUpdateContentInputOn = true;
 
-		if ((content === this.currentPage.currentFileDataCopy))
+		if ((content === this.currentPage.currentFileDataCopy) && (this.archivedUpdateContent[0] == false))
 		{
 			await new Promise(resolve => setTimeout(resolve, 1));
 			this.currentPage.fileUpdateContentInputOn = false;
@@ -416,6 +420,10 @@ export class NotePageComponent implements OnInit
 			if (resonse.statusCode === 200)
 			{
 				this.currentPage.fileUpdateContentInputOn = false;
+
+				if (this.archivedUpdateContent[0])
+					this.archivedUpdateContent = [false, ''];
+
 				return;
 			}
 
