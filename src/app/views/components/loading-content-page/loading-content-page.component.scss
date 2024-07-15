@@ -57,10 +57,17 @@
 	.text-container
 	{
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		gap: 5px;
 
 		animation: textRoutation 0.2s ease-in-out infinite;
+
+		.text-small
+		{
+			font-size: 0.7em;
+		}
 	}
 
 	@keyframes textRoutation
