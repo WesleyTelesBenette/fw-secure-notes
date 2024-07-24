@@ -13,7 +13,7 @@ Com o **FW Secure Notes** você é capaz de:
 - ✏️ Criar anotações de forma simples e rápida, na estrutura de escrita de um bloco de notas.
 - 👁️ Visualizar suas notas de uma forma elegante, utilizando um interpretador similar a Markdown.
 - 🎨 Adequar a cor do sistema, com base no seu gosto pessoal.
-- 🛜 Acessar suas anotações em qualquer dispositivo que tenha acesso ao Google.
+- 🌐 Acessar suas anotações em qualquer dispositivo que tenha acesso ao Google.
 - 🔒 Acessar suas anotações de forma simples, podendo logar e deslogar com facilidade, tornando uma boa opção acessar até mesmo numa máquina que não seja sua.
 
 <img src="https://github.com/WesleyTelesBenette/my-sources-for-docs/blob/main/fw-secure-notes/themes.png" width="80%" />
